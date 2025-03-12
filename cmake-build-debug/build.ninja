@@ -126,6 +126,13 @@ build CMakeFiles/code_craft.dir/writer/brute_writer.cpp.o: CXX_COMPILER__code_cr
   OBJECT_DIR = CMakeFiles/code_craft.dir
   OBJECT_FILE_DIR = CMakeFiles/code_craft.dir/writer
 
+build CMakeFiles/code_craft.dir/write_regulator/most_greed_write_regulator.cpp.o: CXX_COMPILER__code_craft_unscanned_Debug /home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/write_regulator/most_greed_write_regulator.cpp || cmake_object_order_depends_target_code_craft
+  DEP_FILE = CMakeFiles/code_craft.dir/write_regulator/most_greed_write_regulator.cpp.o.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/./moderator -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/./reader -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/./read_regulator -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/./disk -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/./object -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/. -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/./global -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/./writer -I/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/./write_regulator
+  OBJECT_DIR = CMakeFiles/code_craft.dir
+  OBJECT_FILE_DIR = CMakeFiles/code_craft.dir/write_regulator
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target code_craft
@@ -134,7 +141,7 @@ build CMakeFiles/code_craft.dir/writer/brute_writer.cpp.o: CXX_COMPILER__code_cr
 #############################################
 # Link the executable /home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/code_craft
 
-build /home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/code_craft: CXX_EXECUTABLE_LINKER__code_craft_Debug CMakeFiles/code_craft.dir/main.cpp.o CMakeFiles/code_craft.dir/global/global.cpp.o CMakeFiles/code_craft.dir/object/object.cpp.o CMakeFiles/code_craft.dir/read_regulator/read_regulator.cpp.o CMakeFiles/code_craft.dir/disk/disk.cpp.o CMakeFiles/code_craft.dir/write_regulator/write_regulator.cpp.o CMakeFiles/code_craft.dir/moderator/most_greed_moderator.cpp.o CMakeFiles/code_craft.dir/reader/reader.cpp.o CMakeFiles/code_craft.dir/writer/writer.cpp.o CMakeFiles/code_craft.dir/moderator/moderator.cpp.o CMakeFiles/code_craft.dir/writer/brute_writer.cpp.o
+build /home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/code_craft: CXX_EXECUTABLE_LINKER__code_craft_Debug CMakeFiles/code_craft.dir/main.cpp.o CMakeFiles/code_craft.dir/global/global.cpp.o CMakeFiles/code_craft.dir/object/object.cpp.o CMakeFiles/code_craft.dir/read_regulator/read_regulator.cpp.o CMakeFiles/code_craft.dir/disk/disk.cpp.o CMakeFiles/code_craft.dir/write_regulator/write_regulator.cpp.o CMakeFiles/code_craft.dir/moderator/most_greed_moderator.cpp.o CMakeFiles/code_craft.dir/reader/reader.cpp.o CMakeFiles/code_craft.dir/writer/writer.cpp.o CMakeFiles/code_craft.dir/moderator/moderator.cpp.o CMakeFiles/code_craft.dir/writer/brute_writer.cpp.o CMakeFiles/code_craft.dir/write_regulator/most_greed_write_regulator.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/code_craft.dir
   POST_BUILD = :
