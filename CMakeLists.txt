@@ -37,6 +37,8 @@ add_executable(code_craft                   ${cur_src}
         moderator/most_greed_moderator.cpp
         reader/reader.cpp
         writer/writer.cpp
+        moderator/moderator.cpp
+        writer/brute_writer.cpp
 ) # ！！！不要修改 code_craft 名称，直接影响结果；可以根据语法在 ${cur_src} 后面追加
 
 # 以下可以根据需要增加需要链接的库

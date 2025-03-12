@@ -151,7 +151,9 @@
 				14,
 				15,
 				16,
-				17
+				17,
+				18,
+				19
 			]
 		}
 	],
@@ -192,7 +194,9 @@
 				14,
 				15,
 				16,
-				17
+				17,
+				18,
+				19
 			]
 		},
 		{
@@ -310,6 +314,18 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "writer/writer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "moderator/moderator.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "writer/brute_writer.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

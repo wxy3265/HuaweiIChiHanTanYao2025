@@ -1,18 +1,21 @@
 #include "writer.h"
 
-void Writer::execute() {
-    while (!frame_operations_map[Global::now_frame].empty()) {
-        write_operation op = frame_operations_map[Global::now_frame].front();
-        for (int block_id : op.block_ids) {
-            cout << block_id << ' ';
-            Disk::disks[disk_id].store(block_id, op.obj_id, op.obj_block_id);
-        }
-        cout << '\n';
-        frame_operations_map[Global::now_frame].pop();
-    }
-    cout.flush();
+void BruteWriter::emplace_task(Task task) {
+    task_queue.emplace(task);
 }
 
-void Writer::add_operation(int frame, const write_operation& op) {
-    frame_operations_map[frame].push(op);
+vector<write_result> BruteWriter::get_write_results() {
+    vector<write_result> res;
+    int block_cursor = 0;
+    while (!task_queue.empty()) {
+        Task task = task_queue.front(); task_queue.pop();
+        write_result result;
+        result.obj_id = task.get_obj().get_id();
+        for (int now_obj_block_id = 0; now_obj_block_id < task.get_obj().get_size(); now_obj_block_id++) {
+            while (!Disk::disks[disk_id].is_empty(now_obj_block_id)) block_cursor++;
+            result.stored_block_ids.emplace_back(block_cursor++);
+        }
+        res.emplace_back(result);
+    }
+    return res;
 }

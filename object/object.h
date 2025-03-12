@@ -9,6 +9,7 @@ public:
     static map<int, Object> object_map;
     int get_size() const { return size; }
     int get_tag() const { return tag; }
+    int get_id() const { return id; }
     void kill();
 private:
     int id;

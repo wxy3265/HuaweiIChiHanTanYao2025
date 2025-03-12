@@ -20,13 +20,18 @@ void ReadRegulator::create_readers() {
     }
 }
 
-void ReadRegulator::handle_delete() {
+/**
+ * @return deleted obj_id
+ */
+vector<int> ReadRegulator::handle_delete() {
+    vector<int> deleted_obj_ids;
     vector<int> canceled_task;
     int request_nums;
     cin >> request_nums;
     for (int i = 0; i < request_nums; i++) {
         int obj_id;
         cin >> obj_id;
+        deleted_obj_ids.emplace_back(obj_id);
         Object::object_map[obj_id].kill();
         if (objid_task_map.count(obj_id) == 0) continue;
         canceled_task.emplace_back(objid_task_map[obj_id].get_task_id());
@@ -37,4 +42,6 @@ void ReadRegulator::handle_delete() {
         cout << task_id << '\n';
     }
     cout.flush();
+    return deleted_obj_ids;
 }
+

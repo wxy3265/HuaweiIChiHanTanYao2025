@@ -6,18 +6,13 @@ public:
     virtual void execute_frame() = 0;
 };
 
-class NullModerator : public Moderator {
-public:
-    void execute_frame() override {}
-};
-
 class MostGreedModerator: public Moderator {
 public:
     MostGreedModerator() { init(); }
     void execute_frame() override;
 
 private:
-    ReadRegulator readRegulator;
-    WriteRegulator writeRegulator;
+    MostGreedWriteRegulator write_regulator;
+    MostGreedReadRegulator read_regulator;
     void init();
 };
