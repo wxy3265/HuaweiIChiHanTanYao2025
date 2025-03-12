@@ -11,27 +11,32 @@ aux_source_directory(./                     cur_src) # 不要修改
 # 如果需要，可以使用aux_source_directory增加目录
 
 include_directories(./moderator)
-include_directories(./read)
+include_directories(./reader)
+include_directories(./read_regulator)
 include_directories(./disk)
 include_directories(./object)
 include_directories(./)
 include_directories(./global)
-include_directories(./write)
+include_directories(./writer)
+include_directories(./write_regulator)
 add_executable(code_craft                   ${cur_src}
         ichihan.h
         object/object.h
         disk/disk.h
-        read/reader.h
-        read/read_regulator.h
-        write/writer.h
-        write/write_regulator.h
+        reader/reader.h
+        read_regulator/read_regulator.h
+        writer/writer.h
+        write_regulator/write_regulator.h
         moderator/moderator.h
         global/global.h
         global/global.cpp
         object/object.cpp
-        read/read_regulator.cpp
+        read_regulator/read_regulator.cpp
         disk/disk.cpp
-        write/write_regulator.cpp
+        write_regulator/write_regulator.cpp
+        moderator/most_greed_moderator.cpp
+        reader/reader.cpp
+        writer/writer.cpp
 ) # ！！！不要修改 code_craft 名称，直接影响结果；可以根据语法在 ${cur_src} 后面追加
 
 # 以下可以根据需要增加需要链接的库

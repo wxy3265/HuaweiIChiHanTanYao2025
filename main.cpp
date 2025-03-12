@@ -10,7 +10,7 @@ int main() {
     Global::init();
 
     // choose one moderator
-    Moderator *moderator = new DefaultModerator();
+    Moderator *moderator = new NullModerator();
 
     while (Global::now_frame < Global::total_frame) {
         if (!check_frame()) {
