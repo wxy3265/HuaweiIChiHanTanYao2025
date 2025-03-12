@@ -8,10 +8,28 @@ set(EXECUTABLE_OUTPUT_PATH  ${PROJECT_SOURCE_DIR}/) # 不要修改
 option(BUILD_SHARED_LIBS    ""  OFF) # 不要修改
 
 aux_source_directory(./                     cur_src) # 不要修改
-
 # 如果需要，可以使用aux_source_directory增加目录
 
-add_executable(code_craft                   ${cur_src}) # ！！！不要修改 code_craft 名称，直接影响结果；可以根据语法在 ${cur_src} 后面追加
+include_directories(./moderator)
+include_directories(./read)
+include_directories(./disk)
+include_directories(./object)
+include_directories(./)
+include_directories(./global)
+include_directories(./write)
+add_executable(code_craft                   ${cur_src}
+        ichihan.hpp
+        object/object.hpp
+        disk/disk.hpp
+        read/reader.hpp
+        read/read_regulator.hpp
+        write/writer.hpp
+        write/write_regulator.hpp
+        moderator/moderator.hpp
+        global/global.hpp
+        global/global.cpp
+        object/object.cpp
+) # ！！！不要修改 code_craft 名称，直接影响结果；可以根据语法在 ${cur_src} 后面追加
 
 # 以下可以根据需要增加需要链接的库
 #if (NOT WIN32)

@@ -1,0 +1,3 @@
+/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/cmake-build-debug/CMakeFiles/code_craft.dir
+/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,3 +1,5 @@
+#ifndef OBJECT_H
+#define OBJECT_H
 #include "global.hpp"
 
 class Object {
@@ -18,8 +20,8 @@ class ObjectBlock {
 public:
     ObjectBlock() : object_id(-1), block_id(-1) {};
     ObjectBlock(int object_id, int block_id) : object_id(object_id), block_id(block_id) {};
-    int get_object_id() { return object_id; }
-    int get_block_id() { return block_id; }
+    int get_object_id() const { return object_id; }
+    int get_block_id() const { return block_id; }
 private:
     int object_id;
     int block_id; 
@@ -27,10 +29,10 @@ private:
 
 class Task {
 public:
-    Task() : create_frame(-1), obj(Object()) {};
+    Task() : create_frame(-1), obj(Object()), id(-1) {};
     Task(int create_frame, Object obj) : create_frame(create_frame), obj(obj), id(-1) {};
     Task(int create_frame, Object obj, int id) : create_frame(create_frame), obj(obj), id(id) {};
-    int get_create_frame() { return create_frame; }
+    int get_create_frame() const { return create_frame; }
     Object get_obj() { return obj; }
     void cancel() {}
 private:
@@ -38,3 +40,4 @@ private:
     int id;
     Object obj;
 };
+#endif

@@ -1,3 +1,5 @@
+#ifndef ICHIHAN_H
+#define ICHIHAN_H
 #include <algorithm>
 #include <iostream>
 #include <cstring>
@@ -12,3 +14,4 @@ using namespace std;
 
 class Config {
 };
+#endif

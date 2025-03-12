@@ -1,8 +1,11 @@
 #include "moderator.hpp"
 
+bool check_frame();
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
+    freopen("code_craft.log", "w", stderr);
 
     Global::init();
 

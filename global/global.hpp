@@ -1,3 +1,5 @@
+#ifndef GLOBAL_H
+#define GLOBAL_H
 #include "ichihan.hpp"
 
 class Global {
@@ -48,3 +50,4 @@ private:
         cout.flush();
     }
 };
+#endif
