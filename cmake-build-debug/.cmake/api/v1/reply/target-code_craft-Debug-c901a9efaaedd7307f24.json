@@ -195,47 +195,47 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "ichihan.hpp",
+			"path" : "ichihan.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "object/object.hpp",
+			"path" : "object/object.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "disk/disk.hpp",
+			"path" : "disk/disk.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "read/reader.hpp",
+			"path" : "read/reader.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "read/read_regulator.hpp",
+			"path" : "read/read_regulator.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "write/writer.hpp",
+			"path" : "write/writer.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "write/write_regulator.hpp",
+			"path" : "write/write_regulator.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "moderator/moderator.hpp",
+			"path" : "moderator/moderator.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "global/global.hpp",
+			"path" : "global/global.h",
 			"sourceGroupIndex" : 1
 		},
 		{

@@ -1,4 +1,4 @@
-#include "read_regulator.hpp"
+#include "read_regulator.h"
 
 void ReadRegulator::get_request_from_interaction() {
     int request_num;

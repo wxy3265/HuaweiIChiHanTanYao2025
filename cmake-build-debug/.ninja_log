@@ -1,6 +1,17 @@
 # ninja log v5
-393	435	1741787129956719768	/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/code_craft	fa66c8d399772462
-0	13	1741790888824051686	build.ninja	ff60e858cadc1721
-1	317	1741787129838092234	CMakeFiles/code_craft.dir/object/object.cpp.o	f9b5cd515b6976d2
-0	393	1741787129913092236	CMakeFiles/code_craft.dir/main.cpp.o	8b29f604d2b883f3
-0	285	1741787129806092233	CMakeFiles/code_craft.dir/global/global.cpp.o	87c6dba6623aa736
+1	306	1741791574210227865	CMakeFiles/code_craft.dir/disk/disk.cpp.o	4d11b066c936f2d4
+388	428	1741791607970228896	/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/code_craft	9c97750c497d99e9
+0	40	1741791657491928198	build.ninja	ff60e858cadc1721
+0	458	1741791599523228638	CMakeFiles/code_craft.dir/read/read_regulator.cpp.o	d46f6b42793261ba
+2	342	1741791475416224850	CMakeFiles/code_craft.dir/object/object.cpp.o	f9b5cd515b6976d2
+0	339	1741791607881228893	CMakeFiles/code_craft.dir/main.cpp.o	8b29f604d2b883f3
+0	388	1741791607930228894	CMakeFiles/code_craft.dir/write/write_regulator.cpp.o	9306ccf075161796
+2	331	1741791475405224850	CMakeFiles/code_craft.dir/global/global.cpp.o	87c6dba6623aa736
+0	14	1741791657491928198	build.ninja	ff60e858cadc1721
+1	314	1741791657808230417	CMakeFiles/code_craft.dir/disk/disk.cpp.o	4d11b066c936f2d4
+1	326	1741791657821054015	CMakeFiles/code_craft.dir/object/object.cpp.o	f9b5cd515b6976d2
+1	331	1741791657825230417	CMakeFiles/code_craft.dir/global/global.cpp.o	87c6dba6623aa736
+1	372	1741791657866230418	CMakeFiles/code_craft.dir/main.cpp.o	8b29f604d2b883f3
+1	420	1741791657913230420	CMakeFiles/code_craft.dir/write/write_regulator.cpp.o	9306ccf075161796
+0	481	1741791657975230422	CMakeFiles/code_craft.dir/read/read_regulator.cpp.o	d46f6b42793261ba
+482	523	1741791658017230423	/home/wxy3265/work-space/CLionProject/HuaweiIChiHanTanYao2025/code_craft	9c97750c497d99e9

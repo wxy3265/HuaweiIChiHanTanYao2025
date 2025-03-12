@@ -1,5 +1,5 @@
-#include "read_regulator.hpp"
-#include "write_regulator.hpp"
+#include "read_regulator.h"
+#include "write_regulator.h"
 
 class Moderator {
 public:

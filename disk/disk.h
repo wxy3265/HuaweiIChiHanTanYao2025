@@ -1,11 +1,13 @@
 #ifndef DISK_H
 #define DISK_H
-#include "object.hpp"
+#include "object.h"
 
 class Disk {
 public:
     Disk() : id(-1), size(-1) {};
     Disk(int id, int size) : id(id), size(size){};
+
+    static Disk disks[Global::MAX_DISK_NUM];
 
     int get_id() const { return id; }
     int get_size() const { return size; }
@@ -23,6 +25,6 @@ private:
     int head{};
     ObjectBlock stored_object[Global::MAX_DISK_SIZE];
 
-} disk[Global::MAX_DISK_NUM];
+};
 
 #endif

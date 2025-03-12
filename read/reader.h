@@ -1,4 +1,4 @@
-#include "disk.hpp"
+#include "disk.h"
 
 enum operate_type {
     READ,
@@ -39,15 +39,15 @@ private:
         {
         case READ:
             cout << "r";
-            disk[disk_id].move_head(1);
+            Disk::disks[disk_id].move_head(1);
             break;
         case PASS:
             cout << "p";
-            disk[disk_id].move_head(1);
+            Disk::disks[disk_id].move_head(1);
             break;
         case JUMP:
             cout << "j" << op.pos;
-            disk[disk_id].jump_head(op.pos);
+            Disk::disks[disk_id].jump_head(op.pos);
             break;
         default:
             cerr << "Invalid read operation" << endl;

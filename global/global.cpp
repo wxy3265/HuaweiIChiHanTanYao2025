@@ -1,4 +1,4 @@
-#include "global.hpp"
+#include "global.h"
 
 int Global::total_frame = 0;
 int Global::disk_num;

@@ -1,6 +1,6 @@
 #ifndef OBJECT_H
 #define OBJECT_H
-#include "global.hpp"
+#include "global.h"
 
 class Object {
 public:

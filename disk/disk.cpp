@@ -1,4 +1,6 @@
-#include "disk.hpp"
+#include "disk.h"
+
+Disk Disk::disks[Global::MAX_DISK_NUM];
 
 void Disk::store(int block_id, int obj_id, int obj_block_id) {
     stored_object[block_id] = ObjectBlock(obj_id, obj_block_id);

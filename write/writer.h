@@ -1,4 +1,4 @@
-#include "disk.hpp"
+#include "disk.h"
 
 struct write_operation {
     int obj_id;
@@ -16,7 +16,7 @@ public:
             write_operation op = frame_operations_map[Global::now_frame].front();
             for (int block_id : op.block_ids) {
                 cout << block_id << ' ';
-                disk[disk_id].store(block_id, op.obj_id, op.obj_block_id);
+                Disk::disks[disk_id].store(block_id, op.obj_id, op.obj_block_id);
             }
             cout << '\n';
             frame_operations_map[Global::now_frame].pop();

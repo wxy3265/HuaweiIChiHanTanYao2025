@@ -18,15 +18,15 @@ include_directories(./)
 include_directories(./global)
 include_directories(./write)
 add_executable(code_craft                   ${cur_src}
-        ichihan.hpp
-        object/object.hpp
-        disk/disk.hpp
-        read/reader.hpp
-        read/read_regulator.hpp
-        write/writer.hpp
-        write/write_regulator.hpp
-        moderator/moderator.hpp
-        global/global.hpp
+        ichihan.h
+        object/object.h
+        disk/disk.h
+        read/reader.h
+        read/read_regulator.h
+        write/writer.h
+        write/write_regulator.h
+        moderator/moderator.h
+        global/global.h
         global/global.cpp
         object/object.cpp
         read/read_regulator.cpp

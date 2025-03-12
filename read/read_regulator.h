@@ -1,4 +1,4 @@
-#include "reader.hpp"
+#include "reader.h"
 
 class ReadRegulator {
 private:

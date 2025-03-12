@@ -1,4 +1,4 @@
-#include "write_regulator.hpp"
+#include "write_regulator.h"
 
 void WriteRegulator::get_request_from_interaction() {
     int request_num;

@@ -1,6 +1,6 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
-#include "ichihan.hpp"
+#include "ichihan.h"
 
 class Global {
 public:
