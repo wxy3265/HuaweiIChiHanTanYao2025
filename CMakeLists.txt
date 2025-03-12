@@ -29,6 +29,9 @@ add_executable(code_craft                   ${cur_src}
         global/global.hpp
         global/global.cpp
         object/object.cpp
+        read/read_regulator.cpp
+        disk/disk.cpp
+        write/write_regulator.cpp
 ) # ！！！不要修改 code_craft 名称，直接影响结果；可以根据语法在 ${cur_src} 后面追加
 
 # 以下可以根据需要增加需要链接的库

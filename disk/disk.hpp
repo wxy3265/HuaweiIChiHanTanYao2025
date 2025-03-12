@@ -11,18 +11,11 @@ public:
     int get_size() const { return size; }
     int get_head() const { return head; }
 
-    void store(int block_id, int obj_id) {
-        stored_object[block_id] = ObjectBlock(obj_id, block_id);
-    }
-
-    void move_head(int step) {
-        head += step;
-        head %= size;
-    }
-
-    void jump_head(int pos) {
-        head = pos;
-    }
+    void store(int block_id, int obj_id, int obj_block_id);
+    void delete_(int block_id);
+    bool is_empty(int block_id);
+    void move_head(int step);
+    void jump_head(int pos);
     
 private:
     int id;

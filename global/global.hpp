@@ -10,6 +10,7 @@ public:
     static const int MAX_DISK_SIZE = 16384;
     static const int MAX_TOKEN_NUM = 1000;
     static const int MAX_TAG_BLOCK = (int)((MAX_FRAME + 1799) / 1800);
+    static const int MAX_OBJ_SIZE = 5;
 
     static int total_frame;
     static int disk_num;

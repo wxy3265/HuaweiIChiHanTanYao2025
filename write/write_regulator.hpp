@@ -4,15 +4,9 @@ class WriteRegulator {
 public:
 private:
     queue<Task> requests;
+    Writer writers[Global::MAX_DISK_NUM];
     
-    void get_request_from_interaction() {
-        int request_num;
-        cin >> request_num;
-        for (int i = 0 ; i < request_num; i++) {
-            int id, size, tag;
-            Object obj = Object(id, size, tag);
-            Object::object_map[id] = obj;
-            Task task = Task(Global::now_frame, obj);
-        }
-    }
+    void get_request_from_interaction();
+    virtual void init();
+    void create_writers();
 };
