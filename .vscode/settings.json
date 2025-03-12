@@ -1,5 +1,11 @@
 {
     "files.associations": {
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "iostream": "cpp",
+        "map": "cpp",
+        "queue": "cpp",
+        "atomic": "cpp",
+        "string": "cpp",
+        "__config": "cpp"
     }
 }
