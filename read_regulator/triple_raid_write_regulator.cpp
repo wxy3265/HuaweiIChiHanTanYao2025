@@ -1,6 +1,6 @@
 #include "write_regulator.h"
 
-MostGreedWriteRegulator::MostGreedWriteRegulator() {
+TripleRaidWriteRegulator::TripleRaidWriteRegulator() {
     for (int i = 0; i < Global::MAX_DISK_NUM; i++) {
         writers[i] = BruteWriter(i);
     }
@@ -10,7 +10,7 @@ MostGreedWriteRegulator::MostGreedWriteRegulator() {
     }
 }
 
-void MostGreedWriteRegulator::handle_write() {
+void TripleRaidWriteRegulator::handle_write() {
     get_request_from_interaction();
     while(!requests.empty()) {
         Task task = requests.front(); requests.pop();
@@ -53,16 +53,3 @@ void MostGreedWriteRegulator::handle_write() {
         cout.flush();
     }
 }
-
-void MostGreedWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids) {
-    for (auto obj_id: deleted_obj_ids) {
-        Object obj = Object::object_map[obj_id];
-        for (int i = 0; i < Global::disk_num; i++) {
-            if (disk_stored_obj_id_set[i].count(obj_id) > 0) {
-                disk_remain_map[i] -= obj.get_size();
-                disk_stored_obj_id_set[i].erase(obj_id);
-            }
-        }
-    }
-}
-

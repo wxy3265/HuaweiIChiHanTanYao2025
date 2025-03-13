@@ -1,1 +1,10 @@
-/code_craft
+code_craft
+build/
+*.txt
+!CMakeLists.txt
+code_craft.log
+.idea/
+.vscode/
+cmake-build-debug/
+replay/
+CMakeFiles

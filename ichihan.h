@@ -9,8 +9,10 @@
 #include <queue>
 #include <stack>
 #include <cmath>
+#include <ctime>
 #include <map>
 #include <set>
+#define map unordered_map
 using namespace std;
 
 class Config {

@@ -8,6 +8,7 @@ int main() {
     freopen("code_craft.log", "w", stderr);
 
     Global::init();
+    Disk::init();
 
     // choose one moderator
     Moderator *moderator = new MostGreedModerator();
@@ -15,9 +16,17 @@ int main() {
     while (Global::now_frame < Global::total_frame) {
         if (!check_frame()) {
             cerr << "Error: Frame check failed." << endl;
+            while (true) {
+                string s;
+                cin >> s;
+                cerr << "next:" << s << '\n';
+            }
             break;
         }
         cin >> Global::now_frame;
+        cout << "TIMESTAMP " << Global::now_frame << '\n';
+        cout.flush();
+        // cerr << "start execute frame " << Global::now_frame << "\n";
         moderator->execute_frame();
     }
 
@@ -27,5 +36,6 @@ int main() {
 inline bool check_frame() {
     string check_str;
     cin >> check_str;
+    // cerr << "check_str:" << check_str << '\n';
     return check_str == "TIMESTAMP";
 }

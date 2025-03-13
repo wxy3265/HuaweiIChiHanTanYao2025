@@ -24,14 +24,15 @@ public:
     static int now_frame;
     
     static void init() {
-        now_frame = 0;
+        now_frame = 1;
         init_from_interaction();
     }
 
 private:
     static void init_from_interaction() {
-        scanf("%d%d%d%d%d", &total_frame, &tag_num, &disk_num, &disk_size, total_tokens);
-        tag_block = (total_frame + 1799) / 1800;
+        scanf("%d%d%d%d%d", &total_frame, &tag_num, &disk_num, &disk_size, &total_tokens);
+        total_frame += 105;
+        tag_block = ceil(total_frame / 1800);
         for (int i = 0; i < tag_num; i++) {
             for (int j = 0; j < tag_block; j++) {
                 cin >> fre_del[i][j];

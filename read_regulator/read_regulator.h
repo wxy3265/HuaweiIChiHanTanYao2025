@@ -3,17 +3,20 @@
 class ReadRegulator {
 public:
     virtual vector<int> handle_delete();
+    virtual void handle_read() = 0;
 
 protected:
     queue<Task> requests;
-    map<int, Task> objid_task_map;
-    Reader readers[Global::MAX_DISK_NUM];
+    map<int, vector<Task>> objid_tasks_map;
     
     void get_request_from_interaction();
-    void init();
-    void create_readers();
 
 };
 
 class MostGreedReadRegulator: public ReadRegulator {
+public:
+    MostGreedReadRegulator();
+    void handle_read() override;
+private:
+    ReadOnlyGreedReader readers[Global::MAX_DISK_NUM];
 };

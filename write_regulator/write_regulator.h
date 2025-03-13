@@ -16,10 +16,16 @@ public:
     void handle_write() override;
     void update_deleted(const vector<int>& vector1);
 
-private:
+protected:
     map<int, int> disk_remain_map; // disk id -> remain blocks
     set<int> disk_stored_obj_id_set[Global::MAX_DISK_NUM];
     int disk_cursor = 0;
     BruteWriter writers[Global::MAX_DISK_NUM];
 
+};
+
+class TripleRaidWriteRegulator: public MostGreedWriteRegulator{
+public:
+    TripleRaidWriteRegulator();
+    void handle_write() override;
 };

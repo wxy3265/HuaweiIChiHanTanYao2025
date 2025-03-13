@@ -15,7 +15,7 @@ private:
     int id;
     int size;
     int tag;
-    int alive = true;
+    bool alive = true;
 };
 
 class ObjectBlock {
@@ -26,8 +26,8 @@ public:
     int get_obj_block_id() const { return obj_block_id; }
     bool is_null() const { return obj_id == -1; }
 private:
-    int obj_id;
-    int obj_block_id;
+    int obj_id = -1;
+    int obj_block_id = -1;
 };
 
 class Task {
@@ -38,10 +38,14 @@ public:
     int get_task_id() const { return id; }
     int get_create_frame() const { return create_frame; }
     Object get_obj() { return obj; }
+    void complete(int block_id);
+    bool is_done() const;
+    bool block_done(int block_id) const;
 
 private:
     int create_frame;
-    int id;
+    int id = -1;
     Object obj;
+    bool done[Global::MAX_OBJ_SIZE] = {false};
 };
 #endif
