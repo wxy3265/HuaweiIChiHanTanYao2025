@@ -2,6 +2,7 @@
 
 bool check_frame();
 
+// 仅作为程序入口使用
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);

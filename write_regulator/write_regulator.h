@@ -1,29 +1,32 @@
 #include "writer.h"
 
+// 跨盘写策略调节器
 class WriteRegulator {
 public:
-    virtual void handle_write() = 0;
+    virtual void handle_write() = 0; // 处理写请求
 
 protected:
-    queue<Task> requests;
+    queue<Task> requests; // 写请求队列（目前仅作为cin缓存使用）
 
-    void get_request_from_interaction();
+    void get_request_from_interaction(); // 从判题器cin读取写请求
 };
 
+// 纯轮着写
 class MostGreedWriteRegulator: public WriteRegulator{
 public:
     MostGreedWriteRegulator();
     void handle_write() override;
-    void update_deleted(const vector<int>& vector1);
+    void update_deleted(const vector<int>& vector1); // 策略强相关：由于删除操作需要更新磁盘剩余空间，所以需要提供删除的对象id
 
 protected:
-    map<int, int> disk_remain_map; // disk id -> remain blocks
-    set<int> disk_stored_obj_id_set[Global::MAX_DISK_NUM];
-    int disk_cursor = 0;
-    BruteWriter writers[Global::MAX_DISK_NUM];
+    map<int, int> disk_remain_map; // disk id -> remain blocks 每个磁盘剩余空间
+    set<int> disk_stored_obj_id_set[Global::MAX_DISK_NUM]; // 每个磁盘存储了哪些对象
+    int disk_cursor = 0; // 轮到哪个磁盘了
+    BruteWriter writers[Global::MAX_DISK_NUM]; // 每个磁盘的writer
 
 };
 
+// 三副本RAID
 class TripleRaidWriteRegulator: public MostGreedWriteRegulator{
 public:
     TripleRaidWriteRegulator();

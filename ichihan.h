@@ -15,6 +15,7 @@
 #define map unordered_map
 using namespace std;
 
+// 手操配置
 class Config {
 };
 #endif
