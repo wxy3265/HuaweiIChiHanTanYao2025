@@ -16,7 +16,7 @@ void TripleRaidWriteRegulator::handle_write() {
         Task task = requests.front(); requests.pop();
         vector <int> target_disks;
         while (target_disks.size() < 3) {
-            if (disk_remain_map[disk_cursor] < task.get_obj().get_size()) continue;
+            if (disk_remain_map[disk_cursor] < Object::object_map[task.get_obj_id_in_task()].get_size()) continue;
             target_disks.emplace_back(disk_cursor++);
             disk_cursor %= Global::disk_num;
         }

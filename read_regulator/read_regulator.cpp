@@ -6,7 +6,7 @@ void ReadRegulator::get_request_from_interaction() {
     for (int i = 0 ; i < request_num; i++) {
         int task_id, obj_id;
         cin >> task_id >> obj_id;
-        Task task = Task(Global::now_frame, Object::object_map[obj_id], task_id);
+        Task task = Task(Global::now_frame, obj_id, task_id);
         objid_tasks_map[obj_id].emplace_back(task);
     }
 }
