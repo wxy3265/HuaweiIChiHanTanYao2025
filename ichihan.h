@@ -1,5 +1,6 @@
 #ifndef ICHIHAN_H
 #define ICHIHAN_H
+#include <unordered_map>
 #include <algorithm>
 #include <iostream>
 #include <cstring>

@@ -34,24 +34,29 @@ private:
     // 判题器输入初始化
     static void init_from_interaction() {
         scanf("%d%d%d%d%d", &total_frame, &tag_num, &disk_num, &disk_size, &total_tokens);
+        tag_block = ceil((total_frame + 1799) / 1800);
         total_frame += 105;
-        tag_block = ceil(total_frame / 1800);
+        // cerr << tag_num << " " << tag_block << "\n";
         for (int i = 0; i < tag_num; i++) {
             for (int j = 0; j < tag_block; j++) {
                 cin >> fre_del[i][j];
+                // cerr << fre_del[i][j] << "\n";
             }
         }
         for (int i = 0; i < tag_num; i++) {
             for (int j = 0; j < tag_block; j++) {
                 cin >> fre_write[i][j];
+                // cerr << fre_write[i][j] << "\n";
             }
         }
         for (int i = 0; i < tag_num; i++) {
             for (int j = 0; j < tag_block; j++) {
                 cin >> fre_read[i][j];
+                // cerr << fre_read[i][j] << "\n";
             }
         }
         cout << "OK\n";
+        // cerr << "OK\n";
         cout.flush();
     }
 };
