@@ -8,7 +8,7 @@ void WriteRegulator::get_request_from_interaction() {
         cin >> id >> size >> tag;
         Object obj = Object(id, size, tag);
         Object::object_map[id] = obj;
-        Task task = Task(Global::now_frame, obj);
+        Task task = Task(Global::now_frame, obj.get_id());
         requests.push(task);
     }
 }

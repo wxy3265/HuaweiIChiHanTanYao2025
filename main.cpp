@@ -17,11 +17,11 @@ int main() {
     while (Global::now_frame < Global::total_frame) {
         if (!check_frame()) {
             cerr << "Error: Frame check failed." << endl;
-            // while (true) {
-            //     string s;
-            //     cin >> s;
-            //     cerr << "next:" << s << '\n';
-            // }
+            while (true) {
+                string s;
+                cin >> s;
+                cerr << "next:" << s << '\n';
+            }
             break;
         }
         cin >> Global::now_frame;
