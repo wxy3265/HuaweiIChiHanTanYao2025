@@ -27,8 +27,12 @@ vector<int> ReadRegulator::handle_delete() {
         deleted_obj_ids.emplace_back(obj_id);
         Object::object_map[obj_id].kill();
         if (objid_tasks_map.count(obj_id) == 0) continue;
-        for (auto task: objid_tasks_map[obj_id]) {
-            if (task.is_done()) continue;
+        for (int i = 0; i < objid_tasks_map[obj_id].size(); i++) {
+            Task task = objid_tasks_map[obj_id][i];
+            if (task.is_done()) {
+                objid_tasks_map[obj_id].erase(objid_tasks_map[obj_id].begin() + i);
+                continue;
+            }
             canceled_task.emplace_back(task.get_task_id());
         }
         objid_tasks_map.erase(obj_id);
@@ -38,9 +42,17 @@ vector<int> ReadRegulator::handle_delete() {
         cout << task_id << '\n';
     }
     cout.flush();
-    for (int i = 0; i < Global::disk_num; i++) {
-        Disk::disks[i].delete_objs(deleted_obj_ids_set);
+    // for (int i = 0; i < Global::disk_num; i++) {
+    //     Disk::disks[i].delete_objs(deleted_obj_ids_set);//change in 3.26 20:29
+    // }
+    for (auto it : deleted_obj_ids_set) {
+        int blockSize = Object::object_map[it].blockPosition.size();
+        for (int i = 0; i < blockSize; i++) {
+            BlockPosition Oneblock = Object::object_map[it].blockPosition[i];
+            Disk::disks[Oneblock.diskId].delete_block(Oneblock.blockId);
+        }
     }
+
     return deleted_obj_ids;
 }
 
