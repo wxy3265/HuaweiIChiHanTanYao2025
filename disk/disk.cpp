@@ -5,6 +5,7 @@ Disk Disk::disks[Global::MAX_DISK_NUM];
 void Disk::init() {
     for (int i = 0; i < Global::disk_num; i++) {
         disks[i] = Disk(i, Global::disk_size);
+        disks[i].setRWAreaSize(Global::disk_size);
     }
 }
 
@@ -51,4 +52,16 @@ void Disk::jump_head(int pos) {
 
 void Disk::move_block_cursor(int pos) {
     block_cursor = pos;
+}
+
+void Disk::moveBackupBlcckCursor(int pos) {
+    blockCursorInBackupArea = pos;
+}
+
+void Disk::moveRWAreaBlockCursor(int pos) {
+    blockCursorInRWArea = pos;
+}
+
+void Disk::setRWAreaSize(int thisSize) {
+    RWAreaSize = thisSize / 3;
 }
