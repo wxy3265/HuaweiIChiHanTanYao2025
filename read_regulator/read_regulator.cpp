@@ -1,11 +1,12 @@
 #include "read_regulator.h"
 
 void ReadRegulator::get_request_from_interaction() {
-    int request_num;
-    cin >> request_num;
+    int request_num = read_Fast();
+
+    // cin >> request_num;
     for (int i = 0 ; i < request_num; i++) {
-        int task_id, obj_id;
-        cin >> task_id >> obj_id;
+        int task_id = read_Fast(), obj_id = read_Fast();
+        // cin >> task_id >> obj_id;
         Task task = Task(Global::now_frame, obj_id, task_id);
         objid_tasks_map[obj_id].emplace_back(task);
     }
@@ -15,14 +16,15 @@ void ReadRegulator::get_request_from_interaction() {
  * @return deleted obj_id
  */
 vector<int> ReadRegulator::handle_delete() {
+    // cerr << "Tag in handleDelete 1 : " << clock() << "\n";
     vector<int> deleted_obj_ids;
     set<int> deleted_obj_ids_set;
     vector<int> canceled_task;
     int request_nums;
-    cin >> request_nums;
+    request_nums = read_Fast();
     for (int i = 0; i < request_nums; i++) {
-        int obj_id;
-        cin >> obj_id;
+        int obj_id = read_Fast();
+        // cin >> obj_id;
         deleted_obj_ids_set.insert(obj_id);
         deleted_obj_ids.emplace_back(obj_id);
         Object::object_map[obj_id].kill();
@@ -52,7 +54,7 @@ vector<int> ReadRegulator::handle_delete() {
             Disk::disks[Oneblock.diskId].delete_block(Oneblock.blockId);
         }
     }
-
+    // cerr << "Tag in handleDelete 2 : " << clock() << "\n";
     return deleted_obj_ids;
 }
 

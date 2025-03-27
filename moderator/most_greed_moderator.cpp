@@ -7,7 +7,7 @@ void MostGreedModerator::init() {
 
 void MostGreedModerator::execute_frame() {
     int headTime = clock();
-    cerr << "Head time:" << headTime << "\n";
+    // cerr << "Head time:" << headTime << "\n";
     // cerr <
     totalOthers += headTime - lastHead;
     
@@ -38,11 +38,11 @@ void MostGreedModerator::execute_frame() {
     //     cerr << "Read Time:" << readTime << "\n";
     }
     
-    cerr << "Total Other Time:" << totalOthers << "\n";
-    cerr << "Total Handle Delete Time:" << handle_deleteTime << "\n";
-    cerr << "Total Update Delete Time:" << update_deleteTime << "\n";
-    cerr << "Total Write Time:" << writeTime << "\n";
-    cerr << "Total Read Time:" << readTime << "\n";
+    // cerr << "Total Other Time:" << totalOthers << "\n";
+    // cerr << "Total Handle Delete Time:" << handle_deleteTime << "\n";
+    // cerr << "Total Update Delete Time:" << update_deleteTime << "\n";
+    // cerr << "Total Write Time:" << writeTime << "\n";
+    // cerr << "Total Read Time:" << readTime << "\n";
     lastHead = clock();
 }
 

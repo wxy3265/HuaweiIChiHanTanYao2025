@@ -5,6 +5,8 @@ class ReadRegulator {
 public:
     virtual vector<int> handle_delete(); // 处理删请求
     virtual void handle_read() = 0; // 处理读请求
+    int allTime = 0;
+    int inTime = 0;
 
 protected:
     queue<Task> requests; // 所有object的读请求队列（目前仅作为判题器读入的缓存）
