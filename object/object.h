@@ -1,7 +1,10 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 #include "global.h"
-
+struct BlockPosition {
+    int diskId;
+    int blockId;
+};
 // 被存储的对象
 class Object {
 public:
@@ -12,6 +15,8 @@ public:
     int get_tag() const { return tag; }
     int get_id() const { return id; }
     void kill();
+    vector<BlockPosition> blockPosition;
+    // vector<ObjectBlock> Myblocks;
 private:
     int id; // 对象id，-1表示空对象
     int size; // 对象大小

@@ -25,11 +25,13 @@ void Reader::act(head_operation op) const {
             Disk::disks[disk_id].move_head(1);
             break;
         case JUMP:
-            cout << "j" << op.pos;
+            cout << "j" << op.pos;//感觉输出格式有错误
+            // cerr << "j" << op.pos;
+            
             Disk::disks[disk_id].jump_head(op.pos);
             break;
         default:
-            cerr << "Invalid read operation" << endl;
+            // cerr << "Invalid read operation" << endl;
             break;
     }
     cout.flush();

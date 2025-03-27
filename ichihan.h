@@ -11,10 +11,18 @@
 #include <stack>
 #include <cmath>
 #include <ctime>
+#include <list>
 #include <map>
 #include <set>
 #define map unordered_map
 using namespace std;
+
+inline int read_Fast() {
+  int s = 0, f = 0; char ch = getchar();
+  while (!isdigit(ch)) f |= (ch == '-'), ch = getchar();
+  while (isdigit(ch)) s = s * 10 + (ch ^ 48), ch = getchar();
+  return f ? -s : s;
+}
 
 // 手操配置
 class Config {
