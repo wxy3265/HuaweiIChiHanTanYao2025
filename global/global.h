@@ -39,19 +39,19 @@ private:
         // cerr << tag_num << " " << tag_block << "\n";
         for (int i = 0; i < tag_num; i++) {
             for (int j = 0; j < tag_block; j++) {
-                cin >> fre_del[i][j];
+                fre_del[i][j] = read_Fast();
                 // cerr << fre_del[i][j] << "\n";
             }
         }
         for (int i = 0; i < tag_num; i++) {
             for (int j = 0; j < tag_block; j++) {
-                cin >> fre_write[i][j];
+                fre_write[i][j] = read_Fast();
                 // cerr << fre_write[i][j] << "\n";
             }
         }
         for (int i = 0; i < tag_num; i++) {
             for (int j = 0; j < tag_block; j++) {
-                cin >> fre_read[i][j];
+                fre_read[i][j] = read_Fast();
                 // cerr << fre_read[i][j] << "\n";
             }
         }

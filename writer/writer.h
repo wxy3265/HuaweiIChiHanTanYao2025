@@ -22,6 +22,8 @@ public:
     explicit BruteWriter(int d_id) { disk_id = d_id; }
     void emplace_task(Task task); // 给这个writer添加一个任务（将一个任务分配给这个磁盘）
     virtual vector<write_result> get_write_results(); // 返回这个writer的任务完成情况（把每个任务object安排到磁盘哪个位置）
+    virtual vector<write_result> getWriteResultsInRWArea(); // 返回从读写区wirter的任务完成情况。
+    virtual vector<write_result> getWriteResultsInBackupArea(); 
 private:
     queue<Task> task_queue; // 每个writer的任务队列
 };
