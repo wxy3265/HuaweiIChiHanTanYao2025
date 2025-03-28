@@ -25,17 +25,18 @@ void MostGreedModerator::execute_frame() {
     }
 
 
-    write_regulator.handle_write();
+    // write_regulator.handle_write();
+    write_regulator.handleWriteWithTwoArea();
     int handleWrite = clock(); {
         writeTime += handleWrite - updateDelete;
-    //     cerr << "Handle Write Time:" << handleWrite - updateDelete << "\n";
+        // cerr << "Handle Write Time:" << handleWrite - updateDelete << "\n";
     }
     
 
     read_regulator.handle_read();
     int headleRead = clock();{
         readTime += headleRead - handleWrite;
-    //     cerr << "Read Time:" << readTime << "\n";
+        // cerr << "Read Time:" << readTime << "\n";
     }
     
     // cerr << "Total Other Time:" << totalOthers << "\n";

@@ -25,11 +25,12 @@ void MostGreedWriteRegulator::handle_write() {
             if (used[disk_cursor] == true || disk_remain_map[disk_cursor] < Object::object_map[task.get_obj_id_in_task()].get_size()) {
                 disk_cursor++;
                 disk_cursor %= Global::disk_num;
-                cerr << "Could not find a normal disk\n";
+                cerr << "Could not find a normal disk: diskID:"<< disk_cursor<< ':' << disk_remain_map[disk_cursor] << "\n";
                 continue;
             }
             disk_remain_map[disk_cursor] -= Object::object_map[task.get_obj_id_in_task()].get_size();
             used[disk_cursor] = true;
+            disk_stored_obj_id_set[disk_cursor].insert(task.get_obj_id_in_task());
             target_disks.emplace_back(disk_cursor++);
             disk_cursor %= Global::disk_num;
         }
@@ -69,31 +70,45 @@ void MostGreedWriteRegulator::handle_write() {
 
 void MostGreedWriteRegulator::handleWriteWithTwoArea() {
     get_request_from_interaction();
+    int tims = 0;
     while(!requests.empty()) {
+        tims++;
         Task task = requests.front(); requests.pop();
         vector <int> target_disks;
+        bool used[10];
+        for (int i = 0; i < 10; i++) used[i] = false;
         int RWDisk = -1;
         while (RWDisk == -1) {
             if (diskRWRemainMap[RWAreaDiskCursor] < Object::object_map[task.get_obj_id_in_task()].get_size()) {
+                cerr << RWAreaDiskCursor << " " << diskRWRemainMap[RWAreaDiskCursor] << " " << Object::object_map[task.get_obj_id_in_task()].get_size() << "\n";
+                cerr << task.get_obj_id_in_task() << " " << diskBackupRemainMap[RWAreaDiskCursor] << "\n";
                 RWAreaDiskCursor++;
                 RWAreaDiskCursor %= Global::disk_num;
                 continue;
             }
+            diskRWRemainMap[RWAreaDiskCursor] -= Object::object_map[task.get_obj_id_in_task()].get_size();
+            used[RWAreaDiskCursor] = true;
+            disk_stored_obj_id_set[RWAreaDiskCursor].insert(task.get_obj_id_in_task());
             RWDisk = RWAreaDiskCursor;
             RWAreaWriters[RWAreaDiskCursor].emplace_task(task);
         }
 
         while (target_disks.size() < 2) {
-            if (BackupDiskCursor == RWDisk) {
+            if (used[BackupDiskCursor] == true) {
                 BackupDiskCursor++;
                 BackupDiskCursor %= Global::disk_num;
                 continue;
             }
+            
             if (diskBackupRemainMap[BackupDiskCursor] < Object::object_map[task.get_obj_id_in_task()].get_size()) {
+                
                 BackupDiskCursor++;
                 BackupDiskCursor %= Global::disk_num;
                 continue;
             }
+            diskBackupRemainMap[BackupDiskCursor] -= Object::object_map[task.get_obj_id_in_task()].get_size();
+            used[BackupDiskCursor] = true;
+            disk_stored_obj_id_set[BackupDiskCursor].insert(task.get_obj_id_in_task());
             target_disks.emplace_back(BackupDiskCursor++);
             BackupDiskCursor %= Global::disk_num;
         }
@@ -145,7 +160,12 @@ void MostGreedWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids)
         Object obj = Object::object_map[obj_id];
         for (int i = 0; i < Global::disk_num; i++) {
             if (disk_stored_obj_id_set[i].count(obj_id) > 0) {
-                disk_remain_map[i] += obj.get_size();
+                // disk_remain_map[i] += obj.get_size();
+
+                if (obj_id >= Disk::disks[i].getRWAreaSize()) 
+                    diskBackupRemainMap[i] += obj.get_size();
+                else diskRWRemainMap[i] += obj.get_size();
+
                 disk_stored_obj_id_set[i].erase(obj_id);
             }
         }

@@ -63,5 +63,10 @@ void Disk::moveRWAreaBlockCursor(int pos) {
 }
 
 void Disk::setRWAreaSize(int thisSize) {
-    RWAreaSize = thisSize / 3;
+    RWAreaSize = thisSize / 3 + 100;
+}
+
+void Disk::setJumpFlag() {
+    if (jumpFlag == true) jumpFlag = false;
+    else jumpFlag = true;
 }

@@ -27,7 +27,9 @@ public:
     int getRWAreaSize() {
         return RWAreaSize;
     }
-
+    bool getJumpFlag() {
+        return jumpFlag;
+    }
     void store(int block_id, int obj_id, int obj_block_id); // 将对象的某一块存储到磁盘的某个位置
     void delete_block(int block_id); // 删除磁盘上的某个块里的数据
     void delete_objs(set<int> obj_ids); // 删除磁盘上的某些对象
@@ -37,11 +39,13 @@ public:
     void move_block_cursor(int pos);
     void moveRWAreaBlockCursor(int pos);
     void moveBackupBlcckCursor(int pos);
+    void setJumpFlag();
     void setRWAreaSize(int thisSize);
 
     ObjectBlock pick_block(int block_id) { return stored_object[block_id]; } // 获取磁盘上某个块的存储内容
     
 private:
+    bool jumpFlag = false;
     int id; // 磁盘的编号
     int size; // 磁盘的大小
     int head = 0; // 磁头的位置
