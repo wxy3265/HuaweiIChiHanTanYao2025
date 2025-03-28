@@ -190,11 +190,10 @@ void MostGreedWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids)
         Object obj = Object::object_map[obj_id];
         for (int i = 0; i < Global::disk_num; i++) {
             if (disk_stored_obj_id_set[i].count(obj_id) > 0) {
-                // disk_remain_map[i] += obj.get_size();
-
-                if (obj.blockPosition[0].blockId >= Disk::disks[i].getRWAreaSize()) 
-                    diskBackupRemainMap[i] += obj.get_size();
-                else diskRWRemainMap[i] += obj.get_size();
+                disk_remain_map[i] += obj.get_size();
+                // if (obj.blockPosition[0].blockId >= Disk::disks[i].getRWAreaSize()) 
+                //     diskBackupRemainMap[i] += obj.get_size();
+                // else diskRWRemainMap[i] += obj.get_size();
 
                 disk_stored_obj_id_set[i].erase(obj_id);
             }
@@ -202,3 +201,16 @@ void MostGreedWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids)
     }
 }
 
+void MostGreedWriteRegulator::update_deleted_with_two_area(const vector<int>& deleted_obj_ids) {
+    for (auto obj_id: deleted_obj_ids) {
+        Object obj = Object::object_map[obj_id];
+        for (int i = 0; i < obj.blockPosition.size(); i++) {
+            if (obj.blockPosition[i].blockId >= Disk::disks[i].getRWAreaSize())
+                diskBackupRemainMap[obj.blockPosition[i].diskId] += 1;
+            else diskRWRemainMap[obj.blockPosition[i].diskId] += 1;
+            if (disk_stored_obj_id_set[obj.blockPosition[i].diskId].count(obj_id) > 0) 
+                disk_stored_obj_id_set[obj.blockPosition[i].diskId].erase(obj_id);
+        }
+
+    }
+}
