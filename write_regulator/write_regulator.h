@@ -18,6 +18,7 @@ public:
     void handle_write() override;
     void handleWriteWithTwoArea() override;
     void update_deleted(const vector<int>& vector1); // 策略强相关：由于删除操作需要更新磁盘剩余空间，所以需要提供删除的对象id
+    void update_deleted_with_two_area(const vector<int>& vector1);
 
 protected:
     map<int, int> disk_remain_map; // disk id -> remain blocks 每个磁盘剩余空间
