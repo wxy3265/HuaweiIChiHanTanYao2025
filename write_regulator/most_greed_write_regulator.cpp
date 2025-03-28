@@ -192,7 +192,7 @@ void MostGreedWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids)
             if (disk_stored_obj_id_set[i].count(obj_id) > 0) {
                 // disk_remain_map[i] += obj.get_size();
 
-                if (obj_id >= Disk::disks[i].getRWAreaSize()) 
+                if (obj.blockPosition[0].blockId >= Disk::disks[i].getRWAreaSize()) 
                     diskBackupRemainMap[i] += obj.get_size();
                 else diskRWRemainMap[i] += obj.get_size();
 
