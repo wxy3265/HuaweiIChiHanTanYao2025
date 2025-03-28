@@ -13,8 +13,8 @@ void MostGreedModerator::execute_frame() {
     
     vector<int> deleted_obj_ids = read_regulator.handle_delete(); 
     int handleDelete = clock();{
-        // cerr << "Handle Delete Time:" << headTime - handleDelete << "\n";
-        handle_deleteTime += handleDelete - headTime;
+        cerr << "Handle Delete Time:" << headTime - handleDelete << "\n";
+        // handle_deleteTime += handleDelete - headTime;
     }
 
     

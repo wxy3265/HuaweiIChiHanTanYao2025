@@ -36,6 +36,7 @@ vector<write_result> BruteWriter::get_write_results() {
 }
 
 vector<write_result> BruteWriter::getWriteResultsInRWArea() {
+    cerr << "in rw area\n";
     vector<write_result> res;
     while (!task_queue.empty()) {
         Task task = task_queue.front(); task_queue.pop();
@@ -43,12 +44,13 @@ vector<write_result> BruteWriter::getWriteResultsInRWArea() {
         result.obj_id = task.get_obj_id_in_task();
         for (int now_obj_block_id = 0; now_obj_block_id < Object::object_map[task.get_obj_id_in_task()].get_size(); now_obj_block_id++) {
             while (!Disk::disks[disk_id].is_empty(Disk::disks[disk_id].getRWAreaBlockCursor())) {
+                
+                cerr << "NOT EMPTY" << Disk::disks[disk_id].getRWAreaBlockCursor() << "\n";
                 Disk::disks[disk_id].moveRWAreaBlockCursor(
                     (Disk::disks[disk_id].getRWAreaBlockCursor() + 1) % Disk::disks[disk_id].getRWAreaSize()
                 );
                 // block_cursor++;
             }
-                
             // block_cursor %= Global::disk_size;
             Disk::disks[disk_id].store(
                 Disk::disks[disk_id].getRWAreaBlockCursor(), task.get_obj_id_in_task(), now_obj_block_id
@@ -68,20 +70,24 @@ vector<write_result> BruteWriter::getWriteResultsInRWArea() {
         }
         res.emplace_back(result);
     }
+    cerr << "Is Finish RW Area\n";
     return res;
 }
 
 vector<write_result> BruteWriter::getWriteResultsInBackupArea() {
+    // cerr << "is in backup area\n";
     vector<write_result> res;
     // int block_cursor = 0;
+    int tims = 0;
     while (!task_queue.empty()) {
         Task task = task_queue.front(); task_queue.pop();
         write_result result;
         result.obj_id = task.get_obj_id_in_task();
+        // cerr << tims++ << "\n";
         for (int now_obj_block_id = 0; now_obj_block_id < Object::object_map[task.get_obj_id_in_task()].get_size(); now_obj_block_id++) {
             while (!Disk::disks[disk_id].is_empty(Disk::disks[disk_id].getBackupBlockCursor())) {
-                int positionCursor = Disk::disks[disk_id].getBackupBlockCursor();
-                if (positionCursor + 1 == Global::disk_size) positionCursor = Disk::disks[disk_id].getRWAreaSize();
+                int positionCursor = Disk::disks[disk_id].getBackupBlockCursor() + 1;
+                if (positionCursor == Global::disk_size) positionCursor = Disk::disks[disk_id].getRWAreaSize();
 
                 Disk::disks[disk_id].moveBackupBlcckCursor(positionCursor);
                 // block_cursor++;
@@ -109,5 +115,6 @@ vector<write_result> BruteWriter::getWriteResultsInBackupArea() {
         }
         res.emplace_back(result);
     }
+    // cerr << "is Finish Backup Area\n";
     return res;
 }
