@@ -60,4 +60,67 @@ private:
         cout.flush();
     }
 };
+
+template <typename T>
+class LinkedListNode {
+public:
+    // 构造函数，初始化数据及前后指针
+    LinkedListNode(const T& data, LinkedListNode* pre = nullptr, LinkedListNode* nxt = nullptr)
+        : data(data), pre(pre), nxt(nxt) {}
+
+    T get_data() const { return data; }
+    LinkedListNode* get_pre() const { return pre; }
+    LinkedListNode* get_nxt() const { return nxt; }
+    bool is_head() const { return pre == nullptr; }
+
+    /**
+     * 在节点前面添加新节点 (不支持用于头节点)
+     * @return 添加的新节点
+     */
+    LinkedListNode* insert_front(T new_data) {
+        // 确保当前节点不是头节点
+        if (is_head()) {
+            throw std::logic_error("Cannot insert_front on head node");
+        }
+
+        LinkedListNode* new_node = new LinkedListNode(new_data, pre, this);
+        pre->nxt = new_node;
+        pre = new_node;
+        return new_node;
+    }
+
+    /**
+     * 在节点后面添加新节点
+     * @return 添加的新节点
+     */
+    LinkedListNode* insert_back(T new_data) {
+        LinkedListNode* new_node = new LinkedListNode(new_data, this, nxt);
+        if (nxt) {
+            nxt->pre = new_node;
+        }
+        nxt = new_node;
+        return new_node;
+    }
+
+    /**
+     * 删除当前节点
+     * @return 下一个节点
+     */
+    LinkedListNode* remove_this() {
+        LinkedListNode* next_node = nxt;
+        if (pre) {
+            pre->nxt = nxt;
+        }
+        if (nxt) {
+            nxt->pre = pre;
+        }
+        delete this;
+        return next_node;
+    }
+
+private:
+    T data;
+    LinkedListNode *pre, *nxt;
+};
+
 #endif
