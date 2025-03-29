@@ -39,3 +39,7 @@ public:
     TripleRaidWriteRegulator();
     void handle_write() override;
 };
+
+class OneName: public WriteRegulator {
+    
+}

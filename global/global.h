@@ -72,7 +72,9 @@ public:
     LinkedListNode* get_pre() const { return pre; }
     LinkedListNode* get_nxt() const { return nxt; }
     bool is_head() const { return pre == nullptr; }
-
+    void setData(const T& data) {
+        this.data = data;
+    } 
     /**
      * 在节点前面添加新节点 (不支持用于头节点)
      * @return 添加的新节点

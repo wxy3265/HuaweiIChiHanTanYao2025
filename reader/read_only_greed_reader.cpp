@@ -25,7 +25,7 @@ vector<int> ReadOnlyGreedReader::read(map<int, vector<Task>> *tarMap) {
         pre_tokens = max(16.0, ceil(pre_tokens * 0.8));
         if (pre_head == Disk::disks[disk_id].getMaxBlocks()) {
             Disk::disks[disk_id].setJumpFlag();
-            break;
+            if (Disk::disks[disk_id].getMaxBlocks() != Disk::disks[disk_id].getRWAreaSize()) break;
         }
         Disk::disks[disk_id].move_head(1);
         cout << "r";
