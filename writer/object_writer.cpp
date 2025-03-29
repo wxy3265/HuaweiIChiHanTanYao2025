@@ -27,7 +27,11 @@ int ObjectWriter::write_and_get_start_position(int size) {
             if (space_head_node->get_nxt() == nullptr) {
                 space_head_map.erase(space);
             }
-            insert_to_map(size, (start_pos + size) % Global::get_rw_area_size());
+//            if (size == 3 && (start_pos + size) % Global::get_rw_area_size() == 1) {
+//                cerr << "Maybe in there:" << size << " " << start_pos << " ";
+//                cerr << Global::get_rw_area_size() << "\n";
+//            }
+            insert_to_map(space - size, (start_pos + size) % Global::get_rw_area_size());
             space_head_node->remove_this();
             LinkedListNode<SpaceNode> *space_list_node = space_list_head;
             while (space_list_node->get_data().start_pos != start_pos) {
@@ -76,6 +80,7 @@ void ObjectWriter::update_delete(int start_pos, int size) {
         while ((space_list_at_zero->get_pre()->get_data().space + 
                 space_list_at_zero->get_pre()->get_data().start_pos) == 
                 space_list_at_zero->get_data().start_pos) {
+                int insetNum = 0;
                     LinkedListNode<int> *need_delete_node = space_head_map[space_list_at_zero->get_data().space];
                     while (need_delete_node->get_data() != space_list_at_zero->get_data().start_pos) {
                         need_delete_node->get_nxt();
@@ -92,10 +97,10 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                             space_list_at_zero->get_pre()->get_data().start_pos
                         }
                     );
-                    space_list_at_zero = space_list_at_zero->remove_this();
                     insert_to_map(space_list_at_zero->get_data().space + 
                                   space_list_at_zero->get_pre()->get_data().space, 
                                   space_list_at_zero->get_pre()->get_data().start_pos);
+                    space_list_at_zero = space_list_at_zero->remove_this();
                 }
     }
     space_list_node->insert_back(
@@ -126,9 +131,9 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                     }
                 );
 
-                space_list_node = space_list_node->remove_this();
                 insert_to_map(space_list_node->get_data().space + 
                             space_list_node->get_pre()->get_data().space, 
                             space_list_node->get_pre()->get_data().start_pos);
+                space_list_node = space_list_node->remove_this();
             }   
 }
