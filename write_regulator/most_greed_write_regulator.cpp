@@ -97,8 +97,8 @@ void MostGreedWriteRegulator::handleWriteWithTwoArea() {
             RWAreaDiskCursor = checkA.top().disk_id;
             checkA.pop();
             if (diskRWRemainMap[RWAreaDiskCursor] < Object::object_map[task.get_obj_id_in_task()].get_size()) {
-                cerr << RWAreaDiskCursor << " " << diskRWRemainMap[RWAreaDiskCursor] << " " << Object::object_map[task.get_obj_id_in_task()].get_size() << "\n";
-                cerr << task.get_obj_id_in_task() << " " << diskBackupRemainMap[RWAreaDiskCursor] << "\n";
+                // cerr << RWAreaDiskCursor << " " << diskRWRemainMap[RWAreaDiskCursor] << " " << Object::object_map[task.get_obj_id_in_task()].get_size() << "\n";
+                // cerr << task.get_obj_id_in_task() << " " << diskBackupRemainMap[RWAreaDiskCursor] << "\n";
                 // RWAreaDiskCursor++;
                 // RWAreaDiskCursor %= Global::disk_num;
                 continue;
@@ -139,15 +139,15 @@ void MostGreedWriteRegulator::handleWriteWithTwoArea() {
             BackupAreaWriters[disk_id].emplace_task(task);
         }
     }
-    cerr << "Finish RW and Backup Area" << "\n";
+    // cerr << "Finish RW and Backup Area" << "\n";
     // arrange to object
     map<int,int> obj_disk_position[3]; // [replica id][obj id] -> disk id
     map<int,vector<int>> obj_block_position[3]; // [replica id][obj id] -> block position in disk
     map<int,int> obj_cnt; // obj id -> replica cnt
-    cerr << "in for" <<"\n";
+    // cerr << "in for" <<"\n";
     for (int i = 0; i < Global::disk_num; i++) {
-        cerr << "for1\n";
-        cerr << "remain size"<<diskRWRemainMap[i] << "\n";
+        // cerr << "for1\n";
+        // cerr << "remain size"<<diskRWRemainMap[i] << "\n";
         vector<write_result> results = RWAreaWriters[i].getWriteResultsInRWArea();
         for (auto result: results) {
             if (!obj_cnt.count(result.obj_id)) obj_cnt[result.obj_id] = 0;
@@ -157,7 +157,7 @@ void MostGreedWriteRegulator::handleWriteWithTwoArea() {
             }
             obj_cnt[result.obj_id]++;
         }
-        cerr << "for2\n";
+        // cerr << "for2\n";
         results = BackupAreaWriters[i].getWriteResultsInBackupArea();
         for (auto result: results) {
             if (!obj_cnt.count(result.obj_id)) obj_cnt[result.obj_id] = 0;
@@ -167,9 +167,9 @@ void MostGreedWriteRegulator::handleWriteWithTwoArea() {
             }
             obj_cnt[result.obj_id]++;
         }
-        cerr << "for3\n";
+        // cerr << "for3\n";
     }
-    cerr << "Finish for\n";
+    // cerr << "Finish for\n";
     for (auto it = obj_cnt.begin(); it != obj_cnt.end(); it++) {
         int obj_id = it->first;
         cout << obj_id << '\n';
@@ -205,7 +205,7 @@ void MostGreedWriteRegulator::update_deleted_with_two_area(const vector<int>& de
     for (auto obj_id: deleted_obj_ids) {
         Object obj = Object::object_map[obj_id];
         for (int i = 0; i < obj.blockPosition.size(); i++) {
-            if (obj.blockPosition[i].blockId >= Disk::disks[i].getRWAreaSize())
+            if (obj.blockPosition[i].blockId >= Disk::disks[obj.blockPosition[i].diskId].getRWAreaSize())
                 diskBackupRemainMap[obj.blockPosition[i].diskId] += 1;
             else diskRWRemainMap[obj.blockPosition[i].diskId] += 1;
             if (disk_stored_obj_id_set[obj.blockPosition[i].diskId].count(obj_id) > 0) 

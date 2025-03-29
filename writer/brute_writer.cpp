@@ -36,7 +36,7 @@ vector<write_result> BruteWriter::get_write_results() {
 }
 
 vector<write_result> BruteWriter::getWriteResultsInRWArea() {
-    cerr << "in rw area\n";
+    // cerr << "in rw area\n";
     vector<write_result> res;
     while (!task_queue.empty()) {
         Task task = task_queue.front(); task_queue.pop();
@@ -74,7 +74,7 @@ vector<write_result> BruteWriter::getWriteResultsInRWArea() {
         }
         res.emplace_back(result);
     }
-    cerr << "Is Finish RW Area\n";
+    // cerr << "Is Finish RW Area\n";
     return res;
 }
 
@@ -110,8 +110,8 @@ vector<write_result> BruteWriter::getWriteResultsInBackupArea() {
             
             result.stored_block_ids.emplace_back(Disk::disks[disk_id].getBackupBlockCursor());
 
-            int positionCursor = Disk::disks[disk_id].getBackupBlockCursor();
-            if (positionCursor + 1 == Global::disk_size) positionCursor = Disk::disks[disk_id].getRWAreaSize();
+            int positionCursor = Disk::disks[disk_id].getBackupBlockCursor() + 1;
+            if (positionCursor == Global::disk_size) positionCursor = Disk::disks[disk_id].getRWAreaSize();
 
             Disk::disks[disk_id].moveBackupBlockCursor(positionCursor);
             // Disk::disks[disk_id].move_block_cursor((Disk::disks[disk_id].get_block_cursor() + 1) % Global::disk_size);
