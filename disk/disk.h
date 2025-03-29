@@ -38,7 +38,7 @@ public:
     void jump_head(int pos); // 跳转磁头到某个位置
     void move_block_cursor(int pos);
     void moveRWAreaBlockCursor(int pos);
-    void moveBackupBlcckCursor(int pos);
+    void moveBackupBlockCursor(int pos);
     void setJumpFlag();
     void setRWAreaSize(int thisSize);
 
