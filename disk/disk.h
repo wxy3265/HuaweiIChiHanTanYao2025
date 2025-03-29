@@ -30,6 +30,9 @@ public:
     bool getJumpFlag() {
         return jumpFlag;
     }
+    int getMaxBlocks() {
+        return maxBlocks;
+    }
     void store(int block_id, int obj_id, int obj_block_id); // 将对象的某一块存储到磁盘的某个位置
     void delete_block(int block_id); // 删除磁盘上的某个块里的数据
     void delete_objs(set<int> obj_ids); // 删除磁盘上的某些对象
@@ -41,6 +44,7 @@ public:
     void moveBackupBlockCursor(int pos);
     void setJumpFlag();
     void setRWAreaSize(int thisSize);
+    void setMaxBlocks();
 
     ObjectBlock pick_block(int block_id) { return stored_object[block_id]; } // 获取磁盘上某个块的存储内容
     
@@ -53,6 +57,7 @@ private:
     int blockCursorInRWArea = 0;
     int blockCursorInBackupArea = 0;
     int RWAreaSize = 0;
+    int maxBlocks = 0;
     ObjectBlock stored_object[Global::MAX_DISK_SIZE]; // 每个位置存储的内容
     
 };
