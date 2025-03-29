@@ -27,10 +27,10 @@ int ObjectWriter::write_and_get_start_position(int size) {
             if (space_head_node->get_nxt() == nullptr) {
                 space_head_map.erase(space);
             }
-//            if (size == 3 && (start_pos + size) % Global::get_rw_area_size() == 1) {
-//                cerr << "Maybe in there:" << size << " " << start_pos << " ";
-//                cerr << Global::get_rw_area_size() << "\n";
-//            }
+            if (space - size == 1 && (start_pos + size) % Global::get_rw_area_size() == 1) {
+                cerr << "Maybe in there:" << size << " " << start_pos << " ";
+                cerr << Global::get_rw_area_size() << "\n";
+            }
             insert_to_map(space - size, (start_pos + size) % Global::get_rw_area_size());
             space_head_node->remove_this();
             LinkedListNode<SpaceNode> *space_list_node = space_list_head;
@@ -65,6 +65,7 @@ void ObjectWriter::update_delete(int start_pos, int size) {
     if (flag == false) {
         space_list_node = space_list_node->get_pre();
     }
+//    cerr << "IS insert ?\n";
     if (size + start_pos > Disk::disks[disk_id].getRWAreaSize()) {
         int otherSize = size + start_pos - Disk::disks[disk_id].getRWAreaSize();
         size -= otherSize;
@@ -80,7 +81,6 @@ void ObjectWriter::update_delete(int start_pos, int size) {
         while ((space_list_at_zero->get_pre()->get_data().space + 
                 space_list_at_zero->get_pre()->get_data().start_pos) == 
                 space_list_at_zero->get_data().start_pos) {
-                int insetNum = 0;
                     LinkedListNode<int> *need_delete_node = space_head_map[space_list_at_zero->get_data().space];
                     while (need_delete_node->get_data() != space_list_at_zero->get_data().start_pos) {
                         need_delete_node->get_nxt();
@@ -97,6 +97,11 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                             space_list_at_zero->get_pre()->get_data().start_pos
                         }
                     );
+//                    int insetNum = space_list_at_zero->get_data().space +
+//                                   space_list_at_zero->get_pre()->get_data().space;
+//                    if (insetNum == 1 && space_list_at_zero->get_pre()->get_data().start_pos == 1) {
+//                        cerr << "IN Zero Area \n";
+//                    }
                     insert_to_map(space_list_at_zero->get_data().space + 
                                   space_list_at_zero->get_pre()->get_data().space, 
                                   space_list_at_zero->get_pre()->get_data().start_pos);
@@ -110,6 +115,9 @@ void ObjectWriter::update_delete(int start_pos, int size) {
         }
     );
     insert_to_map(size, start_pos);
+//    if (size == 1 && start_pos == 1) {
+//        cerr << "IN normal Area\n";
+//    }
     space_list_node = space_list_node->get_nxt();
     while ((space_list_node->get_pre()->get_data().space + 
             space_list_node->get_pre()->get_data().start_pos) == 
@@ -130,7 +138,11 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                         space_list_node->get_pre()->get_data().start_pos
                     }
                 );
-
+//                int insetNum = space_list_node->get_data().space +
+//                        space_list_node->get_pre()->get_data().space;
+//                if (insetNum == 1 && space_list_node->get_pre()->get_data().start_pos == 1) {
+//                    cerr << "IN many Area \n";
+//                }
                 insert_to_map(space_list_node->get_data().space + 
                             space_list_node->get_pre()->get_data().space, 
                             space_list_node->get_pre()->get_data().start_pos);

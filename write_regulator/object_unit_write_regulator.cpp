@@ -116,7 +116,8 @@ void ObjectUnitWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids
             if (obj.blockPosition[i].blockId >= Disk::disks[obj.blockPosition[i].diskId].getRWAreaSize()) {
                 diskBackupRemainMap[obj.blockPosition[i].diskId] += 1;
                 cerr << "release backup:" << obj.blockPosition[i].diskId << '\n';
-            } else if (rw_handled) {
+            } else if (!rw_handled) {
+                cerr << "release RW: " << obj.blockPosition[i].diskId << "\n";
                 object_writers[obj.blockPosition[i].diskId].update_delete(
                     obj.blockPosition[i].blockId,
                     obj.get_size()
