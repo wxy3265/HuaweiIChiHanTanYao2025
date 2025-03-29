@@ -71,3 +71,8 @@ void Disk::setJumpFlag() {
     if (jumpFlag == true) jumpFlag = false;
     else jumpFlag = true;
 }
+
+void Disk::setMaxBlocks() {
+    maxBlocks += 1;
+    maxBlocks = min(maxBlocks, RWAreaSize);
+}

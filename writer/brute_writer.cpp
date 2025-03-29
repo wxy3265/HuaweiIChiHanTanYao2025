@@ -63,7 +63,7 @@ vector<write_result> BruteWriter::getWriteResultsInRWArea() {
             BlockPosition newPosition;
             newPosition.blockId = Disk::disks[disk_id].getRWAreaBlockCursor();
             newPosition.diskId = disk_id;
-
+            Disk::disks[disk_id].setMaxBlocks();
             Object::object_map[task.get_obj_id_in_task()].blockPosition.push_back(newPosition);
             
             result.stored_block_ids.emplace_back(Disk::disks[disk_id].getRWAreaBlockCursor());
@@ -105,7 +105,7 @@ vector<write_result> BruteWriter::getWriteResultsInBackupArea() {
             BlockPosition newPosition;
             newPosition.blockId = Disk::disks[disk_id].getBackupBlockCursor();
             newPosition.diskId = disk_id;
-
+            Disk::disks[disk_id].setMaxBlocks();
             Object::object_map[task.get_obj_id_in_task()].blockPosition.push_back(newPosition);
             
             result.stored_block_ids.emplace_back(Disk::disks[disk_id].getBackupBlockCursor());
