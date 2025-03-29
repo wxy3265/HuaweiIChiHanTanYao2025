@@ -8,3 +8,5 @@ code_craft.log
 cmake-build-debug/
 replay/
 CMakeFiles
+Makefile
+cmake_install.cmake
