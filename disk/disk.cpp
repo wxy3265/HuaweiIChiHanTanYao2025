@@ -54,7 +54,7 @@ void Disk::move_block_cursor(int pos) {
     block_cursor = pos;
 }
 
-void Disk::moveBackupBlcckCursor(int pos) {
+void Disk::moveBackupBlockCursor(int pos) {
     blockCursorInBackupArea = pos;
 }
 
@@ -64,6 +64,7 @@ void Disk::moveRWAreaBlockCursor(int pos) {
 
 void Disk::setRWAreaSize(int thisSize) {
     RWAreaSize = thisSize / 3 + 1;
+    moveBackupBlockCursor(RWAreaSize);
 }
 
 void Disk::setJumpFlag() {
