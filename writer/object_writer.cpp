@@ -3,18 +3,31 @@
 ObjectWriter::ObjectWriter(int disk_id) {
     space_list_head = new LinkedListNode<SpaceNode>(SpaceNode{-1, -1}, nullptr, nullptr);
     space_list_head->insert_back(SpaceNode{Disk::disks[disk_id].getRWAreaSize(), 0});
+    space_head_map[Global::get_rw_area_size()] = new LinkedListNode<int>(0, nullptr, nullptr);
+    this->disk_id = disk_id;
+}
+
+void ObjectWriter::insert_to_map(int size, int start_pos) {
+    if (space_head_map.count(size) > 0) {
+        space_head_map[size]->insert_back(start_pos);
+    } else {
+        space_head_map[size] = new LinkedListNode<int>(start_pos, nullptr, nullptr);
+    }
 }
 
 int ObjectWriter::write_and_get_start_position(int size) {
     // find position
     for (auto it = space_head_map.begin(); it != space_head_map.end(); ++it) {
         const int space = it->first;
+        cerr << "space:" << space << '\n';
         LinkedListNode<int> *space_head_node = it->second;
+        cerr << "disk position: " << space_head_node->get_data() << "  \n";
         if (space >= size) {
             const int start_pos = space_head_node->get_data();
             if (space_head_node->get_nxt() == nullptr) {
                 space_head_map.erase(space);
             }
+            insert_to_map(size, (start_pos + size) % Global::get_rw_area_size());
             space_head_node->remove_this();
             LinkedListNode<SpaceNode> *space_list_node = space_list_head;
             while (space_list_node->get_data().start_pos != start_pos) {
@@ -57,17 +70,32 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                 0
             }
         );
+        insert_to_map(otherSize, 0);
         LinkedListNode<SpaceNode> *space_list_at_zero = space_list_head->get_nxt();
         space_list_at_zero = space_list_at_zero->get_nxt();
         while ((space_list_at_zero->get_pre()->get_data().space + 
                 space_list_at_zero->get_pre()->get_data().start_pos) == 
                 space_list_at_zero->get_data().start_pos) {
+                    LinkedListNode<int> *need_delete_node = space_head_map[space_list_at_zero->get_data().space];
+                    while (need_delete_node->get_data() != space_list_at_zero->get_data().start_pos) {
+                        need_delete_node->get_nxt();
+                    }
+                    need_delete_node->remove_this();
+                    need_delete_node = space_head_map[space_list_at_zero->get_pre()->get_data().space];
+                    while (need_delete_node->get_data() != space_list_at_zero->get_pre()->get_data().start_pos) {
+                        need_delete_node->get_nxt();
+                    }
+                    need_delete_node->remove_this();
                     space_list_at_zero->get_pre()->setData(
                         SpaceNode {
                             space_list_at_zero->get_data().space + space_list_at_zero->get_pre()->get_data().space,
                             space_list_at_zero->get_pre()->get_data().start_pos
                         }
                     );
+                    space_list_at_zero = space_list_at_zero->remove_this();
+                    insert_to_map(space_list_at_zero->get_data().space + 
+                                  space_list_at_zero->get_pre()->get_data().space, 
+                                  space_list_at_zero->get_pre()->get_data().start_pos);
                 }
     }
     space_list_node->insert_back(
@@ -76,16 +104,31 @@ void ObjectWriter::update_delete(int start_pos, int size) {
             start_pos
         }
     );
+    insert_to_map(size, start_pos);
     space_list_node = space_list_node->get_nxt();
     while ((space_list_node->get_pre()->get_data().space + 
             space_list_node->get_pre()->get_data().start_pos) == 
             space_list_node->get_data().start_pos) {
+                LinkedListNode<int> *need_delete_node = space_head_map[space_list_node->get_data().space];
+                    while (need_delete_node->get_data() != space_list_node->get_data().start_pos) {
+                        need_delete_node->get_nxt();
+                    }
+                    need_delete_node->remove_this();
+                    need_delete_node = space_head_map[space_list_node->get_pre()->get_data().space];
+                    while (need_delete_node->get_data() != space_list_node->get_pre()->get_data().start_pos) {
+                        need_delete_node->get_nxt();
+                    }
+                    need_delete_node->remove_this();
                 space_list_node->get_pre()->setData(
                     SpaceNode {
                         space_list_node->get_data().space + space_list_node->get_pre()->get_data().space,
                         space_list_node->get_pre()->get_data().start_pos
                     }
                 );
-            space_list_node = space_list_node->remove_this();
+
+                space_list_node = space_list_node->remove_this();
+                insert_to_map(space_list_node->get_data().space + 
+                            space_list_node->get_pre()->get_data().space, 
+                            space_list_node->get_pre()->get_data().start_pos);
             }   
 }

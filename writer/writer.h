@@ -41,4 +41,5 @@ public:
 private:
     map<int, LinkedListNode<int>*> space_head_map;
     LinkedListNode<SpaceNode> *space_list_head;
+    void insert_to_map(int size, int start_pos);
 };

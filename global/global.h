@@ -69,15 +69,15 @@ template <typename T>
 class LinkedListNode {
 public:
     // 构造函数，初始化数据及前后指针
-    LinkedListNode(const T& data, LinkedListNode* pre = nullptr, LinkedListNode* nxt = nullptr)
+    LinkedListNode(T data, LinkedListNode* pre = nullptr, LinkedListNode* nxt = nullptr)
         : data(data), pre(pre), nxt(nxt) {}
 
     T get_data() const { return data; }
     LinkedListNode* get_pre() const { return pre; }
     LinkedListNode* get_nxt() const { return nxt; }
     bool is_head() const { return pre == nullptr; }
-    void setData(const T& data) {
-        this.data = data;
+    void setData(T data) {
+        this->data = data;
     } 
     /**
      * 在节点前面添加新节点 (不支持用于头节点)
