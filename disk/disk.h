@@ -48,7 +48,7 @@ public:
 
     ObjectBlock pick_block(int block_id) { return stored_object[block_id]; } // 获取磁盘上某个块的存储内容
     
-private:
+protected:
     bool jumpFlag = false;
     int id; // 磁盘的编号
     int size; // 磁盘的大小
@@ -59,7 +59,6 @@ private:
     int RWAreaSize = 0;
     int maxBlocks = 0;
     ObjectBlock stored_object[Global::MAX_DISK_SIZE]; // 每个位置存储的内容
-    
 };
 
 #endif

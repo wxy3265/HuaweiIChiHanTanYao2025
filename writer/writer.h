@@ -24,6 +24,20 @@ public:
     virtual vector<write_result> get_write_results(); // 返回这个writer的任务完成情况（把每个任务object安排到磁盘哪个位置）
     virtual vector<write_result> getWriteResultsInRWArea(); // 返回从读写区wirter的任务完成情况。
     virtual vector<write_result> getWriteResultsInBackupArea(); 
-private:
+protected:
     queue<Task> task_queue; // 每个writer的任务队列
+};
+
+struct SpaceNode {
+    int space;
+    int start_pos;
+};
+class ObjectWriter: public Writer {
+public:
+    ObjectWriter(int disk_id);
+    int write_and_get_start_position(int size);
+    void update_delete(int start_pos, int size);
+private:
+    map<int, LinkedListNode<int>*> space_head_map;
+    LinkedListNode<SpaceNode> *space_list_head;
 };
