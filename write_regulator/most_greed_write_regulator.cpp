@@ -2,7 +2,7 @@
 
 MostGreedWriteRegulator::MostGreedWriteRegulator() {
     for (int i = 0; i < Global::MAX_DISK_NUM; i++) {
-        writers[i] = BruteWriter(i);
+        brute_writers[i] = BruteWriter(i);
         RWAreaWriters[i] = BruteWriter(i);
         BackupAreaWriters[i] = BruteWriter(i);
     }
@@ -35,7 +35,7 @@ void MostGreedWriteRegulator::handle_write() {
             disk_cursor %= Global::disk_num;
         }
         for (auto disk_id: target_disks) {
-            writers[disk_id].emplace_task(task);
+            brute_writers[disk_id].emplace_task(task);
         }
     }
     // arrange to object
@@ -43,7 +43,7 @@ void MostGreedWriteRegulator::handle_write() {
     map<int,vector<int>> obj_block_position[3]; // [replica id][obj id] -> block position in disk
     map<int,int> obj_cnt; // obj id -> replica cnt
     for (int i = 0; i < Global::disk_num; i++) {
-        vector<write_result> results = writers[i].get_write_results();
+        vector<write_result> results = brute_writers[i].get_write_results();
         for (auto result: results) {
             if (!obj_cnt.count(result.obj_id)) obj_cnt[result.obj_id] = 0;
             obj_disk_position[obj_cnt[result.obj_id]][result.obj_id] = i;
@@ -68,13 +68,6 @@ void MostGreedWriteRegulator::handle_write() {
     }
 }
 
-struct node {
-    int disk_id, diskNum;
-    bool operator < (const node &b) const {
-        return diskNum < b.diskNum;
-    }
-};
-
 void MostGreedWriteRegulator::handleWriteWithTwoArea() {
     get_request_from_interaction();
     int tims = 0;
@@ -86,9 +79,9 @@ void MostGreedWriteRegulator::handleWriteWithTwoArea() {
         // for (int i = 0; i < 10; i++) used[i] = false;
         
         int RWDisk = -1;
-        priority_queue<node> checkA;
+        priority_queue<heap_node> checkA;
         for (int i = 0; i < Global::disk_num; i++) {
-            node num;
+            heap_node num;
             num.disk_id = i, num.diskNum = diskRWRemainMap[i];
             checkA.push(num);
         }
@@ -114,7 +107,7 @@ void MostGreedWriteRegulator::handleWriteWithTwoArea() {
         for(int i = 0; i < Global::disk_num; i++) {
             if (i == RWDisk) continue;
 
-            node num;
+            heap_node num;
             num.disk_id = i;
             num.diskNum = diskBackupRemainMap[i];
             checkA.push(num);

@@ -44,7 +44,6 @@ public:
     void moveBackupBlockCursor(int pos);
     void setJumpFlag();
     void setRWAreaSize(int thisSize);
-    void setMaxBlocks();
 
     ObjectBlock pick_block(int block_id) { return stored_object[block_id]; } // 获取磁盘上某个块的存储内容
     

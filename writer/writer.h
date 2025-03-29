@@ -34,6 +34,7 @@ struct SpaceNode {
 };
 class ObjectWriter: public Writer {
 public:
+    ObjectWriter() = default;
     ObjectWriter(int disk_id);
     int write_and_get_start_position(int size);
     void update_delete(int start_pos, int size);

@@ -10,6 +10,9 @@ void Disk::init() {
 }
 
 void Disk::store(int block_id, int obj_id, int obj_block_id) {
+    if (block_id <= RWAreaSize) {
+        maxBlocks = max(maxBlocks, block_id);
+    }
     stored_object[block_id] = ObjectBlock(obj_id, obj_block_id);
 }
 
@@ -70,9 +73,4 @@ void Disk::setRWAreaSize(int thisSize) {
 void Disk::setJumpFlag() {
     if (jumpFlag == true) jumpFlag = false;
     else jumpFlag = true;
-}
-
-void Disk::setMaxBlocks() {
-    maxBlocks += 1;
-    maxBlocks = min(maxBlocks, RWAreaSize);
 }

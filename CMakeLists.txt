@@ -42,6 +42,8 @@ add_executable(code_craft                   ${cur_src}
         write_regulator/most_greed_write_regulator.cpp
         read_regulator/most_greed_read_regulator.cpp
         reader/read_only_greed_reader.cpp
+        write_regulator/object_unit_write_regulator.cpp
+        moderator/object_unit_rw_area_moderator.cpp
 ) # ！！！不要修改 code_craft 名称，直接影响结果；可以根据语法在 ${cur_src} 后面追加
 
 # 以下可以根据需要增加需要链接的库

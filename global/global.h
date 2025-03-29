@@ -23,6 +23,10 @@ public:
     static int fre_write[MAX_TAG_NUM][MAX_TAG_BLOCK]; // tag写频率
     static int fre_read[MAX_TAG_NUM][MAX_TAG_BLOCK]; // tag读频率
     static int now_frame; // 当前帧数
+
+    static int get_rw_area_size() {
+        return disk_size / 3 + 1;
+    }
     
     // 初始化全局变量
     static void init() {
