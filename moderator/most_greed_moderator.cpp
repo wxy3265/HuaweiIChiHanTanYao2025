@@ -18,7 +18,7 @@ void MostGreedModerator::execute_frame() {
     }
 
     
-    write_regulator.update_deleted(deleted_obj_ids);
+    write_regulator.update_deleted_with_two_area(deleted_obj_ids);
     int updateDelete = clock(); {
         update_deleteTime += updateDelete - handleDelete;
         // cerr << "Update Delete Time:" << updateDelete - handleDelete << '\n';
