@@ -46,6 +46,7 @@ bool Disk::is_empty(int block_id) {
 }
 
 void Disk::move_head(int step) {
+    cerr <<"DiskId:" << id << "->" << head << "\n"; 
     head += step;
     head %= size;
 }
