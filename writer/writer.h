@@ -34,10 +34,12 @@ struct SpaceNode {
 };
 class ObjectWriter: public Writer {
 public:
+    ObjectWriter() = default;
     ObjectWriter(int disk_id);
     int write_and_get_start_position(int size);
     void update_delete(int start_pos, int size);
 private:
     map<int, LinkedListNode<int>*> space_head_map;
     LinkedListNode<SpaceNode> *space_list_head;
+    void insert_to_map(int size, int start_pos);
 };
