@@ -20,7 +20,7 @@ int ObjectWriter::write_and_get_start_position(int size) {
         space_list_node = space_list_node->get_nxt();
         const int space = space_list_node->get_data().space;
         const int space_start_pos = space_list_node->get_data().start_pos;
-        cerr << "space:" << space << " " << space_list_node->get_nxt() << ' ' << this << ' ' << size << '\n';
+        cerr << "disk:" << disk_id << "space:" << space << " " << space_list_node->get_nxt() << ' ' << space_list_node << ' ' << size << '\n';
         if (space >= size) {
             if (space > size) {
                 space_list_node->insert_back(
@@ -141,7 +141,8 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                 // cerr << space_list_node->get_nxt() << "\n";
 
                 space_list_node = space_list_node->remove_this();
-                break;
+                if (space_list_node == nullptr)
+                    break;
                 // cerr << space_list_node->get_data().space << " " << space_list_node->get_data().start_pos << "\n";
     }   
     cerr << "!!q5:\n";
