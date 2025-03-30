@@ -10,7 +10,7 @@ void Disk::init() {
 }
 
 void Disk::store(int block_id, int obj_id, int obj_block_id) {
-    cerr << "store:" << block_id << '\n';
+    // cerr << "store:" << block_id << '\n';
     if (block_id < RWAreaSize) {
         maxBlocks = max(maxBlocks, block_id);
     }
@@ -46,7 +46,7 @@ bool Disk::is_empty(int block_id) {
 }
 
 void Disk::move_head(int step) {
-    cerr <<"DiskId:" << id << "->" << head << "\n"; 
+    // cerr <<"DiskId:" << id << "->" << head << "\n"; 
     head += step;
     head %= size;
 }

@@ -20,7 +20,7 @@ int ObjectWriter::write_and_get_start_position(int size) {
         space_list_node = space_list_node->get_nxt();
         const int space = space_list_node->get_data().space;
         const int space_start_pos = space_list_node->get_data().start_pos;
-        cerr << "disk:" << disk_id << "space:" << space << " " << space_list_node->get_nxt() << ' ' << space_list_node << ' ' << size << '\n';
+        // cerr << "disk:" << disk_id << "space:" << space << " " << space_list_node->get_nxt() << ' ' << space_list_node << ' ' << size << '\n';
         if (space >= size) {
             if (space > size) {
                 space_list_node->insert_back(
@@ -38,7 +38,7 @@ int ObjectWriter::write_and_get_start_position(int size) {
 }
 
 void ObjectWriter::update_delete(int start_pos, int size) {
-    cerr << "!!q1:\n";
+    // cerr << "!!q1:\n";
     LinkedListNode<SpaceNode> *space_list_node = space_list_head;
     bool flag = false;
     while (space_list_node->get_data().start_pos < start_pos) {
@@ -52,7 +52,7 @@ void ObjectWriter::update_delete(int start_pos, int size) {
     if (flag == false) {
         space_list_node = space_list_node->get_pre();
     }
-    cerr << "!!q2:\n";
+    // cerr << "!!q2:\n";
 //    cerr << "IS insert ?\n";
     if (size + start_pos > Disk::disks[disk_id].getRWAreaSize()) {
         int otherSize = size + start_pos - Disk::disks[disk_id].getRWAreaSize();
@@ -96,7 +96,7 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                     space_list_at_zero = space_list_at_zero->remove_this();
                 }
     }
-    cerr << "!!q3:\n";
+    // cerr << "!!q3:\n";
     space_list_node->insert_back(
         SpaceNode {
             size,
@@ -107,7 +107,7 @@ void ObjectWriter::update_delete(int start_pos, int size) {
 //    if (size == 1 && start_pos == 1) {
 //        cerr << "IN normal Area\n";
 //    }
-    cerr << "!!q4:\n";
+    // cerr << "!!q4:\n";
     space_list_node = space_list_node->get_nxt();
     while ((space_list_node->get_pre()->get_data().space + 
             space_list_node->get_pre()->get_data().start_pos) == 
@@ -122,16 +122,16 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                 //         need_delete_node->get_nxt();
                 //     }
                 //     need_delete_node->remove_this();
-                cerr <<"sizeNum:" <<space_list_node->get_pre()->get_data().space <<" " <<  
-                space_list_node->get_pre()->get_data().start_pos << " " << 
-                space_list_node->get_data().start_pos << " " << Disk::disks[disk_id].getRWAreaSize() << "\n";
+                // cerr <<"sizeNum:" <<space_list_node->get_pre()->get_data().space <<" " <<  
+                // space_list_node->get_pre()->get_data().start_pos << " " << 
+                // space_list_node->get_data().start_pos << " " << Disk::disks[disk_id].getRWAreaSize() << "\n";
                 space_list_node->get_pre()->setData(
                     SpaceNode {
                         space_list_node->get_data().space + space_list_node->get_pre()->get_data().space,
                         space_list_node->get_pre()->get_data().start_pos
                     }
                 );
-                cerr << "Finished\n";
+                // cerr << "Finished\n";
 //                int insetNum = space_list_node->get_data().space +
 //                        space_list_node->get_pre()->get_data().space;
 //                if (insetNum == 1 && space_list_node->get_pre()->get_data().start_pos == 1) {
@@ -145,5 +145,5 @@ void ObjectWriter::update_delete(int start_pos, int size) {
                     break;
                 // cerr << space_list_node->get_data().space << " " << space_list_node->get_data().start_pos << "\n";
     }   
-    cerr << "!!q5:\n";
+    // cerr << "!!q5:\n";
 }

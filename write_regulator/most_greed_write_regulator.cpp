@@ -197,14 +197,14 @@ void MostGreedWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids)
 void MostGreedWriteRegulator::update_deleted_with_two_area(const vector<int>& deleted_obj_ids) {
     for (auto obj_id: deleted_obj_ids) {
         Object obj = Object::object_map[obj_id];
-        cerr << "del obj size:" << obj.get_size() << '\n';
+        // cerr << "del obj size:" << obj.get_size() << '\n';
         for (int i = 0; i < obj.blockPosition.size(); i++) {
             if (obj.blockPosition[i].blockId >= Disk::disks[obj.blockPosition[i].diskId].getRWAreaSize()) {
                 diskBackupRemainMap[obj.blockPosition[i].diskId] += 1;
-                cerr << "release backup:" << obj.blockPosition[i].diskId << '\n';
+                // cerr << "release backup:" << obj.blockPosition[i].diskId << '\n';
             } else {
                 diskRWRemainMap[obj.blockPosition[i].diskId] += 1;
-                cerr << "release rw:" << obj.blockPosition[i].diskId << '\n';
+                // cerr << "release rw:" << obj.blockPosition[i].diskId << '\n';
             }
             if (disk_stored_obj_id_set[obj.blockPosition[i].diskId].count(obj_id) > 0) 
                 disk_stored_obj_id_set[obj.blockPosition[i].diskId].erase(obj_id);

@@ -33,7 +33,7 @@ void ObjectUnitWriteRegulator::handle_write() {
             if (start_pos != -1) RWDisk = RWAreaDiskCursor;
             RWAreaDiskCursor++;
             RWAreaDiskCursor %= Global::disk_num;
-            cerr << start_pos << "\n";
+            // cerr << start_pos << "\n";
         }
         // for (RWDisk = 0; RWDisk < Global::disk_num && start_pos == -1; RWDisk++) {
         //     start_pos  = object_writers[RWDisk].write_and_get_start_position(
@@ -41,10 +41,10 @@ void ObjectUnitWriteRegulator::handle_write() {
         // }
         // RWDisk--;    
         if (start_pos == -1) throw logic_error("cannot find enough blocks");
-        cerr << "!1\n";
-        cerr << RWDisk << '\n';
+        // cerr << "!1\n";
+        // cerr << RWDisk << '\n';
         disk_stored_obj_id_set[RWDisk].insert(task.get_obj_id_in_task());
-        cerr << "!2\n";
+        // cerr << "!2\n";
         obj_disk_position[0][task.get_obj_id_in_task()] = RWDisk;
         for (int i = 0; i < Object::object_map[task.get_obj_id_in_task()].get_size(); i++) {
             const int now_pos = (start_pos + i) % Global::get_rw_area_size();

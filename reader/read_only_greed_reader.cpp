@@ -11,7 +11,7 @@ vector<int> ReadOnlyGreedReader::read(map<int, vector<Task>> *tarMap) {
     remain_tokens = Global::total_tokens;
     int pre_tokens = 64;
     int pre_head = Disk::disks[disk_id].get_head();
-    cerr <<"DDDiskID:" << disk_id << " " << pre_head << "max:" << Disk::disks[disk_id].getMaxBlocks() << " " << Global::get_rw_area_size() << "\n";
+    // cerr <<"DDDiskID:" << disk_id << " " << pre_head << "max:" << Disk::disks[disk_id].getMaxBlocks() << " " << Global::get_rw_area_size() << "\n";
     // int tmp_head = (pre_head + 1) % Global::get_rw_area_size(), tmp_pre_tokens = max(16.0, ceil(pre_tokens * 0.8)), tmp_remain_tokens = remain_tokens - 64;
     // int max_read_times = 1, latest_read_task_block = -1, cnt_times = 1, latest_times = -1;
     // while (tmp_head != pre_head && latest_read_task_block != -1 || tmp_remain_tokens > tmp_pre_tokens) {
@@ -58,7 +58,7 @@ vector<int> ReadOnlyGreedReader::read(map<int, vector<Task>> *tarMap) {
         cout << "r";
         ObjectBlock block = Disk::disks[disk_id].pick_block(pre_head);
         if (!block.is_null()) {
-            for (int i = 0; i < objid_tasks_map[block.get_obj_id()].size(); i++) {
+            for (int i = 0; i < objid_tasks_map[block.get_obj_id()].size();) {
                 Task task = objid_tasks_map[block.get_obj_id()][i];
                 // if (task.is_done()) continue;
                 task.complete(block.get_obj_block_id());
@@ -69,6 +69,7 @@ vector<int> ReadOnlyGreedReader::read(map<int, vector<Task>> *tarMap) {
                     continue;
                 }
                 objid_tasks_map[block.get_obj_id()][i] = task;
+                i++;
             }
         }
         pre_head = Disk::disks[disk_id].get_head();

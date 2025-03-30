@@ -29,16 +29,17 @@ vector<int> ReadRegulator::handle_delete() {
         deleted_obj_ids.emplace_back(obj_id);
         Object::object_map[obj_id].kill();
         if (objid_tasks_map.count(obj_id) == 0) continue;
-        for (int i = 0; i < objid_tasks_map[obj_id].size();) {
-            Task task = objid_tasks_map[obj_id][i];
+        for (int j = 0; j < objid_tasks_map[obj_id].size();) {
+            cerr << "taskdone:" << j << ' ' << objid_tasks_map[obj_id].size() << '\n';
+            Task task = objid_tasks_map[obj_id][j];
             if (task.is_done()) {
-                objid_tasks_map[obj_id].erase(objid_tasks_map[obj_id].begin() + i);
+                objid_tasks_map[obj_id].erase(objid_tasks_map[obj_id].begin() + j);
                 continue;
             }
             canceled_task.emplace_back(task.get_task_id());
+            j++;
         }
         objid_tasks_map.erase(obj_id);
-        i++
     }
     cout << canceled_task.size() << '\n';
     for (auto task_id: canceled_task) {
