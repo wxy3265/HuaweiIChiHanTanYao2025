@@ -4,9 +4,12 @@
 #include <algorithm>
 #include <iostream>
 #include <cstring>
+#include <numeric>
 #include <string>
 #include <cstdio>
 #include <vector>
+#include <random>
+#include <limits>
 #include <queue>
 #include <stack>
 #include <cmath>

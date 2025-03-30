@@ -1,11 +1,11 @@
 #include "moderator.h"
 
-void MostGreedModerator::init() {
+void ObjectUnitRWAreaModerator::init() {
     read_regulator = MostGreedReadRegulator();
-    write_regulator = MostGreedWriteRegulator();
+    write_regulator = ObjectUnitWriteRegulator();
 }
 
-void MostGreedModerator::execute_frame() {
+void ObjectUnitRWAreaModerator::execute_frame() {
     int headTime = clock();
     // cerr << "Head time:" << headTime << "\n";
     totalOthers += headTime - lastHead;
@@ -18,7 +18,7 @@ void MostGreedModerator::execute_frame() {
 
     
     // write_regulator.update_deleted(deleted_obj_ids);
-    write_regulator.update_deleted_with_two_area(deleted_obj_ids);
+    write_regulator.update_deleted(deleted_obj_ids);
     int updateDelete = clock(); {
         update_deleteTime += updateDelete - handleDelete;
         // cerr << "Update Delete Time:" << updateDelete - handleDelete << '\n';
@@ -26,7 +26,7 @@ void MostGreedModerator::execute_frame() {
 
 
     // write_regulator.handle_write();
-    write_regulator.handleWriteWithTwoArea();
+    write_regulator.handle_write();
     int handleWrite = clock(); {
         writeTime += handleWrite - updateDelete;
         // cerr << "Handle Write Time:" << handleWrite - updateDelete << "\n";
