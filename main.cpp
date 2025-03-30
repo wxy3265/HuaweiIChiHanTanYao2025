@@ -13,7 +13,7 @@ int main() {
     Disk::init();
 
     // choose one moderator
-    Moderator *moderator = new ObjectUnitRWAreaModerator();
+    Moderator *moderator = new ObjectTagRWAreaModerator();
 
     while (Global::now_frame < Global::total_frame) {
         if (!check_frame()) {

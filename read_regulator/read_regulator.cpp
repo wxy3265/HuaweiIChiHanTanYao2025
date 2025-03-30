@@ -30,7 +30,7 @@ vector<int> ReadRegulator::handle_delete() {
         Object::object_map[obj_id].kill();
         if (objid_tasks_map.count(obj_id) == 0) continue;
         for (int j = 0; j < objid_tasks_map[obj_id].size();) {
-            cerr << "taskdone:" << j << ' ' << objid_tasks_map[obj_id].size() << '\n';
+            // cerr << "taskdone:" << j << ' ' << objid_tasks_map[obj_id].size() << '\n';
             Task task = objid_tasks_map[obj_id][j];
             if (task.is_done()) {
                 objid_tasks_map[obj_id].erase(objid_tasks_map[obj_id].begin() + j);

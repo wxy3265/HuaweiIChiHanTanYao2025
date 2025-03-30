@@ -32,3 +32,13 @@ private:
     MostGreedReadRegulator read_regulator;
     void init();
 };
+
+class ObjectTagRWAreaModerator: public Moderator {
+public:
+    ObjectTagRWAreaModerator() { init(); }
+    void execute_frame() override;
+private:
+    ObjectTagWriteRegulator write_regulator;
+    MostGreedReadRegulator read_regulator;
+    void init();
+};

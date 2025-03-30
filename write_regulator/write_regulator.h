@@ -44,7 +44,7 @@ protected:
 class ObjectUnitWriteRegulator: public MostGreedWriteRegulator {
 public:
     ObjectUnitWriteRegulator();
-    void handle_write();
+    virtual void handle_write();
     void update_deleted(const vector<int>& vector1);
 protected:
     ObjectWriter object_writers[Global::MAX_DISK_NUM];
@@ -55,4 +55,14 @@ class TripleRaidWriteRegulator: public MostGreedWriteRegulator{
 public:
     TripleRaidWriteRegulator();
     void handle_write() override;
+};
+
+class ObjectTagWriteRegulator: public ObjectUnitWriteRegulator {
+public:
+    ObjectTagWriteRegulator();
+    void handle_write() override;
+    void update_deleted(const vector<int>& vector1);
+protected:
+    ObjectWriter object_writers[Global::MAX_DISK_NUM];
+    map<int, int> tag_disk_map;
 };

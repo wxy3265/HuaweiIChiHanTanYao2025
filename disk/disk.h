@@ -1,6 +1,6 @@
 #ifndef DISK_H
 #define DISK_H
-#include "object.h"
+#include "tag.h"
 
 // 磁盘
 class Disk {

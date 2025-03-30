@@ -1,6 +1,7 @@
 #include "write_regulator.h"
 
-ObjectUnitWriteRegulator::ObjectUnitWriteRegulator() {
+ObjectTagWriteRegulator::ObjectTagWriteRegulator() {
+
     for (int i = 0; i < Global::MAX_DISK_NUM; i++) {
         BackupAreaWriters[i] = BruteWriter(i);
         object_writers[i] = ObjectWriter(i);
@@ -9,9 +10,10 @@ ObjectUnitWriteRegulator::ObjectUnitWriteRegulator() {
         diskBackupRemainMap[i] = Global::disk_size - Disk::disks[i].getRWAreaSize();
         disk_stored_obj_id_set[i] = set<int>();
     }
+    tag_disk_map = Tag::disk_tag.handle_tag();
 }
 
-void ObjectUnitWriteRegulator::handle_write() {
+void ObjectTagWriteRegulator::handle_write() {
     get_request_from_interaction();
     map<int,int> obj_disk_position[3]; // [replica id][obj id] -> disk id
     map<int,vector<int>> obj_block_position[3]; // [replica id][obj id] -> block position in disk
@@ -26,13 +28,19 @@ void ObjectUnitWriteRegulator::handle_write() {
         // handle rw
         int RWDisk = -1;
         int start_pos = -1;
-        // RWAreaDiskCursor
+        int obj_tag_in_disk = tag_disk_map[Object::object_map[task.get_obj_id_in_task()].get_tag() + 1] - 1;
+        RWAreaDiskCursor = obj_tag_in_disk;
+        // cerr << "CheckCursor and tag " << RWAreaDiskCursor << " " << obj_tag_in_disk << " " << task.get_obj_id_in_task() << "\n";
         while (start_pos == -1) {
             start_pos = object_writers[RWAreaDiskCursor].write_and_get_start_position(
                 Object::object_map[task.get_obj_id_in_task()].get_size());
             if (start_pos != -1) RWDisk = RWAreaDiskCursor;
             RWAreaDiskCursor++;
             RWAreaDiskCursor %= Global::disk_num;
+            if (RWAreaDiskCursor == obj_tag_in_disk) {
+              RWAreaDiskCursor++;
+              RWAreaDiskCursor %= Global::disk_num;
+            }
             // cerr << start_pos << "\n";
         }
         // for (RWDisk = 0; RWDisk < Global::disk_num && start_pos == -1; RWDisk++) {
@@ -116,7 +124,7 @@ void ObjectUnitWriteRegulator::handle_write() {
     }
 }
 
-void ObjectUnitWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids) {
+void ObjectTagWriteRegulator::update_deleted(const vector<int>& deleted_obj_ids) {
     for (auto obj_id: deleted_obj_ids) {
         Object obj = Object::object_map[obj_id];
 //        cerr << "del obj size:" << obj.get_size() << '\n';
