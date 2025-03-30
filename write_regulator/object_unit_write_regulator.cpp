@@ -26,11 +26,20 @@ void ObjectUnitWriteRegulator::handle_write() {
         // handle rw
         int RWDisk = -1;
         int start_pos = -1;
-        for (RWDisk = 0; RWDisk < Global::disk_num && start_pos == -1; RWDisk++) {
-            start_pos  = object_writers[RWDisk].write_and_get_start_position(
+        // RWAreaDiskCursor
+        while (start_pos == -1) {
+            start_pos = object_writers[RWAreaDiskCursor].write_and_get_start_position(
                 Object::object_map[task.get_obj_id_in_task()].get_size());
+            if (start_pos != -1) RWDisk = RWAreaDiskCursor;
+            RWAreaDiskCursor++;
+            RWAreaDiskCursor %= Global::disk_num;
+            cerr << start_pos << "\n";
         }
-        RWDisk--;
+        // for (RWDisk = 0; RWDisk < Global::disk_num && start_pos == -1; RWDisk++) {
+        //     start_pos  = object_writers[RWDisk].write_and_get_start_position(
+        //         Object::object_map[task.get_obj_id_in_task()].get_size());
+        // }
+        // RWDisk--;    
         if (start_pos == -1) throw logic_error("cannot find enough blocks");
         cerr << "!1\n";
         cerr << RWDisk << '\n';

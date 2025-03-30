@@ -25,7 +25,7 @@ public:
         return blockCursorInBackupArea;
     }
     int getRWAreaSize() {
-        return RWAreaSize;
+        return Global::get_rw_area_size();
     }
     bool getJumpFlag() {
         return jumpFlag;
@@ -42,7 +42,7 @@ public:
     void move_block_cursor(int pos);
     void moveRWAreaBlockCursor(int pos);
     void moveBackupBlockCursor(int pos);
-    void setJumpFlag();
+    void setJumpFlag(bool flag);
     void setRWAreaSize(int thisSize);
 
     ObjectBlock pick_block(int block_id) { return stored_object[block_id]; } // 获取磁盘上某个块的存储内容

@@ -10,7 +10,8 @@ void Disk::init() {
 }
 
 void Disk::store(int block_id, int obj_id, int obj_block_id) {
-    if (block_id <= RWAreaSize) {
+    cerr << "store:" << block_id << '\n';
+    if (block_id < RWAreaSize) {
         maxBlocks = max(maxBlocks, block_id);
     }
     stored_object[block_id] = ObjectBlock(obj_id, obj_block_id);
@@ -66,11 +67,10 @@ void Disk::moveRWAreaBlockCursor(int pos) {
 }
 
 void Disk::setRWAreaSize(int thisSize) {
-    RWAreaSize = thisSize / 3 + 1;
+    RWAreaSize = Global::get_rw_area_size();
     moveBackupBlockCursor(RWAreaSize);
 }
 
-void Disk::setJumpFlag() {
-    if (jumpFlag == true) jumpFlag = false;
-    else jumpFlag = true;
+void Disk::setJumpFlag(bool flag) {
+    jumpFlag = flag;
 }
