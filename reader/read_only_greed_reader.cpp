@@ -63,7 +63,7 @@ vector<int> ReadOnlyGreedReader::read(map<int, vector<Task>> *tarMap) {
                 // if (task.is_done()) continue;
                 task.complete(block.get_obj_block_id());
                 if (task.is_done()) {
-                    cerr << "task done:" << task.get_create_frame() << "->" << Global::now_frame << "delta:" << Global::now_frame - task.get_create_frame() << '\n';
+                    // cerr << "task done:" << task.get_create_frame() << "->" << Global::now_frame << "delta:" << Global::now_frame - task.get_create_frame() << '\n';
                     completed_task_ids.emplace_back(task.get_task_id());
                     objid_tasks_map[block.get_obj_id()].erase(objid_tasks_map[block.get_obj_id()].begin() + i);
                     continue;
